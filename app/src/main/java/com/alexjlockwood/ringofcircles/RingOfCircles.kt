@@ -19,8 +19,8 @@ import kotlin.math.min
 import kotlin.math.sin
 
 private const val NUM_DOTS = 16
-private const val PERIOD1 = -10000.0
-private const val PERIOD2 = -500.0
+private const val DOT_PERIOD = 10000.0
+private const val WAVE_PERIOD = DOT_PERIOD / (8 * Math.PI)
 
 @Composable
 fun RingOfCircles() {
@@ -83,16 +83,16 @@ private fun DrawScope.drawDot(
     dotGap: Float,
     paint: Paint
 ) {
-    val angle0 = (index / NUM_DOTS.toDouble() + (millis / PERIOD1)) % 1.0 * (2 * Math.PI)
-    val angle1 = angle0 + (millis / PERIOD2)
+    val dotAngle = (index / NUM_DOTS.toDouble() + (millis / -DOT_PERIOD)) % 1.0 * (2 * Math.PI)
+    val waveAngle = (dotAngle + (millis / -WAVE_PERIOD)) % (2 * Math.PI)
 
-    if (cos(angle1) < 0 == above) {
+    if (cos(waveAngle) < 0 == above) {
         return
     }
 
     save()
-    rotate(Math.toDegrees(angle0).toFloat())
-    translate((ringRadius + sin(angle1) * waveRadius).toFloat(), 0f)
+    rotate(Math.toDegrees(dotAngle).toFloat())
+    translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
 
     paint.color = Color.White
     paint.style = PaintingStyle.stroke
