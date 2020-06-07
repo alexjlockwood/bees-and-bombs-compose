@@ -4,15 +4,15 @@ import android.os.SystemClock
 import android.view.Choreographer
 import androidx.compose.Composable
 import androidx.compose.MutableState
-import androidx.compose.remember
 import androidx.compose.state
-import androidx.ui.core.DrawScope
 import androidx.ui.core.Modifier
 import androidx.ui.foundation.Canvas
 import androidx.ui.geometry.Offset
 import androidx.ui.graphics.Color
-import androidx.ui.graphics.Paint
-import androidx.ui.graphics.PaintingStyle
+import androidx.ui.graphics.drawscope.DrawScope
+import androidx.ui.graphics.drawscope.Fill
+import androidx.ui.graphics.drawscope.Stroke
+import androidx.ui.graphics.drawscope.withTransform
 import androidx.ui.layout.fillMaxSize
 import kotlin.math.cos
 import kotlin.math.min
@@ -31,46 +31,47 @@ fun RingOfCircles() {
 
 @Composable
 private fun DrawContent(state: MutableState<Long>) {
-    val paint = remember { Paint() }
     Canvas(modifier = Modifier.fillMaxSize()) {
         val millis = state.value
-        val width = size.width.value
-        val height = size.height.value
+        val width = size.width
+        val height = size.height
         val ringRadius = min(width, height) * 0.35f
         val waveRadius = min(width, height) * 0.10f
         val dotRadius = waveRadius / 4f
         val dotGap = dotRadius / 2f
 
-        save()
-        translate(width / 2f, height / 2f)
+        withTransform({
+            translate(width / 2f, height / 2f)
+        }, {
+            // Draw the dots below the ring.
+            for (i in 0..NUM_DOTS) {
+                drawDot(i, millis, false, ringRadius, waveRadius, dotRadius, dotGap)
+            }
 
-        // Draw the dots below the ring.
-        for (i in 0..NUM_DOTS) {
-            drawDot(i, millis, false, ringRadius, waveRadius, dotRadius, dotGap, paint)
-        }
+            // Draw the ring.
+            drawRing(ringRadius, dotRadius, dotGap)
 
-        // Draw the ring.
-        drawRing(ringRadius, dotRadius, dotGap, paint)
-
-        // Draw the dots above the ring.
-        for (i in 0..NUM_DOTS) {
-            drawDot(i, millis, true, ringRadius, waveRadius, dotRadius, dotGap, paint)
-        }
-
-        restore()
+            // Draw the dots above the ring.
+            for (i in 0..NUM_DOTS) {
+                drawDot(i, millis, true, ringRadius, waveRadius, dotRadius, dotGap)
+            }
+        })
     }
 }
 
-private fun DrawScope.drawRing(ringRadius: Float, dotRadius: Float, dotGap: Float, paint: Paint) {
-    paint.color = Color.White
-    paint.style = PaintingStyle.stroke
-    paint.strokeWidth = dotRadius + dotGap * 2
-    drawCircle(Offset.zero, ringRadius, paint)
-
-    paint.color = Color.Black
-    paint.style = PaintingStyle.stroke
-    paint.strokeWidth = dotRadius
-    drawCircle(Offset.zero, ringRadius, paint)
+private fun DrawScope.drawRing(ringRadius: Float, dotRadius: Float, dotGap: Float) {
+    drawCircle(
+        color = Color.White,
+        radius = ringRadius,
+        center = Offset.zero,
+        style = Stroke(width = dotRadius + dotGap * 2)
+    )
+    drawCircle(
+        color = Color.Black,
+        radius = ringRadius,
+        center = Offset.zero,
+        style = Stroke(width = dotRadius)
+    )
 }
 
 private fun DrawScope.drawDot(
@@ -80,8 +81,7 @@ private fun DrawScope.drawDot(
     ringRadius: Float,
     waveRadius: Float,
     dotRadius: Float,
-    dotGap: Float,
-    paint: Paint
+    dotGap: Float
 ) {
     val dotAngle = (index / NUM_DOTS.toDouble() + (millis / -DOT_PERIOD)) % 1.0 * (2 * Math.PI)
     val waveAngle = (dotAngle + (millis / -WAVE_PERIOD)) % (2 * Math.PI)
@@ -90,20 +90,23 @@ private fun DrawScope.drawDot(
         return
     }
 
-    save()
-    rotate(Math.toDegrees(dotAngle).toFloat())
-    translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
-
-    paint.color = Color.White
-    paint.style = PaintingStyle.stroke
-    paint.strokeWidth = dotGap * 2
-    drawCircle(Offset.zero, dotRadius, paint)
-
-    paint.color = Color.Black
-    paint.style = PaintingStyle.fill
-    drawCircle(Offset.zero, dotRadius, paint)
-
-    restore()
+    withTransform({
+        rotate(Math.toDegrees(dotAngle).toFloat(), 0f, 0f)
+        translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
+    }, {
+        drawCircle(
+            color = Color.White,
+            radius = dotRadius,
+            center = Offset.zero,
+            style = Stroke(width = dotGap * 2)
+        )
+        drawCircle(
+            color = Color.Black,
+            radius = dotRadius,
+            center = Offset.zero,
+            style = Fill
+        )
+    })
 }
 
 // TODO: figure out how to stop this loop when the window loses focus
