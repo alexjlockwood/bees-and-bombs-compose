@@ -7,10 +7,8 @@ import androidx.compose.MutableState
 import androidx.compose.state
 import androidx.ui.core.Modifier
 import androidx.ui.foundation.Canvas
-import androidx.ui.geometry.Offset
 import androidx.ui.graphics.Color
 import androidx.ui.graphics.drawscope.DrawScope
-import androidx.ui.graphics.drawscope.Fill
 import androidx.ui.graphics.drawscope.Stroke
 import androidx.ui.graphics.drawscope.withTransform
 import androidx.ui.layout.fillMaxSize
@@ -40,38 +38,20 @@ private fun DrawContent(state: MutableState<Long>) {
         val dotRadius = waveRadius / 4f
         val dotGap = dotRadius / 2f
 
-        withTransform({
-            translate(width / 2f, height / 2f)
-        }, {
-            // Draw the dots below the ring.
-            for (i in 0..NUM_DOTS) {
-                drawDot(i, millis, false, ringRadius, waveRadius, dotRadius, dotGap)
-            }
+        // Draw the dots below the ring.
+        for (i in 0..NUM_DOTS) {
+            drawDot(i, millis, false, ringRadius, waveRadius, dotRadius, dotGap)
+        }
 
-            // Draw the ring.
-            drawRing(ringRadius, dotRadius, dotGap)
+        // Draw the ring.
+        drawCircle(color = Color.White, radius = ringRadius, style = Stroke(dotRadius + dotGap * 2))
+        drawCircle(color = Color.Black, radius = ringRadius, style = Stroke(dotRadius))
 
-            // Draw the dots above the ring.
-            for (i in 0..NUM_DOTS) {
-                drawDot(i, millis, true, ringRadius, waveRadius, dotRadius, dotGap)
-            }
-        })
+        // Draw the dots above the ring.
+        for (i in 0..NUM_DOTS) {
+            drawDot(i, millis, true, ringRadius, waveRadius, dotRadius, dotGap)
+        }
     }
-}
-
-private fun DrawScope.drawRing(ringRadius: Float, dotRadius: Float, dotGap: Float) {
-    drawCircle(
-        color = Color.White,
-        radius = ringRadius,
-        center = Offset.zero,
-        style = Stroke(width = dotRadius + dotGap * 2)
-    )
-    drawCircle(
-        color = Color.Black,
-        radius = ringRadius,
-        center = Offset.zero,
-        style = Stroke(width = dotRadius)
-    )
 }
 
 private fun DrawScope.drawDot(
@@ -91,21 +71,11 @@ private fun DrawScope.drawDot(
     }
 
     withTransform({
-        rotate(Math.toDegrees(dotAngle).toFloat(), 0f, 0f)
+        rotate(Math.toDegrees(dotAngle).toFloat())
         translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
     }, {
-        drawCircle(
-            color = Color.White,
-            radius = dotRadius,
-            center = Offset.zero,
-            style = Stroke(width = dotGap * 2)
-        )
-        drawCircle(
-            color = Color.Black,
-            radius = dotRadius,
-            center = Offset.zero,
-            style = Fill
-        )
+        drawCircle(color = Color.White, radius = dotRadius, style = Stroke(width = dotGap * 2))
+        drawCircle(color = Color.Black, radius = dotRadius)
     })
 }
 
