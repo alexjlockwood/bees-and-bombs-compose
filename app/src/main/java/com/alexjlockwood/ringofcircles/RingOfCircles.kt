@@ -82,13 +82,15 @@ private fun DrawScope.drawDot(
  */
 @Composable
 private fun animationTimeMillis(): State<Long> {
-    val millisState = mutableStateOf(0L)
+    val millisState = state { 0L }
     val lifecycleOwner = LifecycleOwnerAmbient.current
     launchInComposition {
         val startTime = awaitFrameMillis { it }
         lifecycleOwner.whenStarted {
             while (true) {
-                awaitFrameMillis { millisState.value = it - startTime }
+                awaitFrameMillis { frameTime ->
+                    millisState.value = frameTime - startTime
+                }
             }
         }
     }
