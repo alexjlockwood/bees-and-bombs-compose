@@ -50,11 +50,11 @@ fun TickerWave(modifier: Modifier = Modifier) {
                         var dd = max(abs(xx), abs(0.5f * xx + mn * yy))
                         dd = max(dd, abs(0.5f * xx - mn * yy))
                         val tt = (t + 100f - 0.0006f * dd) % 1f
-                        val q = constrain(lerp(-1.5f, 2.5f, (3 * tt) % 1), 0f, 1f)
+                        val q = lerp(-1.5f, 2.5f, (3 * tt) % 1).coerceIn(0f, 1f)
                         val th = -atan2(xx, yy) + PI * (3 * tt).toInt() / 3f + ease(q) * TWO_PI / 6
                         withTransform({
                             translate(x, y)
-                            rotate(toDegrees(th), w / 2f, h / 2f)
+                            rotate(th.toDegrees(), w / 2f, h / 2f)
                         }, {
                             drawRect(
                                 color = cs[a],

@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import kotlin.math.atan2
 import kotlin.math.cos
-import kotlin.math.min
 import kotlin.math.sin
 
 private const val N = 720
@@ -70,7 +69,7 @@ fun WaveSquare(modifier: Modifier = Modifier) {
 
     Canvas(modifier = modifier) {
         withTransform({
-            scale(min(size.width, size.height) / LINE_LENGTH)
+            scale(size.minDimension / LINE_LENGTH)
             translate(size.width / 2f, size.height / 2f)
         }, {
             drawPath(

@@ -57,15 +57,15 @@ private fun DrawScope.drawDot(
     ringColor: Color,
     outlineColor: Color,
 ) {
-    val dotAngle = (index / NUM_DOTS.toFloat() + (millis / -DOT_PERIOD)) % 1f * (2 * Math.PI)
-    val waveAngle = (dotAngle + (millis / -WAVE_PERIOD)) % (2 * Math.PI)
+    val dotAngle = (index / NUM_DOTS.toFloat() + (millis / -DOT_PERIOD)) % 1f * TWO_PI
+    val waveAngle = (dotAngle + (millis / -WAVE_PERIOD)) % TWO_PI
 
     if (cos(waveAngle) > 0 == below) {
         return
     }
 
     withTransform({
-        rotate(Math.toDegrees(dotAngle).toFloat())
+        rotate(dotAngle.toDegrees())
         translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
     }, {
         drawCircle(outlineColor, radius = dotRadius, style = Stroke(dotGap * 2))
