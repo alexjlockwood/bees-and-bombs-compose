@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.graphics.vector.PathNode.MoveTo
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
@@ -31,14 +32,14 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
             targetValue = 1f,
             anim = repeatable(
                 iterations = AnimationConstants.Infinite,
-                animation = tween(durationMillis = 2500, easing = LinearEasing),
+                animation = tween(durationMillis = 3000, easing = LinearEasing),
             ),
         )
     }
 
-    val hippoColor = Color(0xFF78909C)
-    val elephantColor = Color(0xFFBDBDBD)
-    val buffaloColor = Color(0xFF795548)
+    val hippoColor = colorResource(R.color.hippo)
+    val elephantColor = colorResource(R.color.elephant)
+    val buffaloColor = colorResource(R.color.buffalo)
 
     val hippoPathData = stringResource(R.string.hippo)
     val elephantPathData = stringResource(R.string.elephant)
@@ -48,15 +49,36 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
     val elephantPathNodes = remember { addPathNodes(elephantPathData) }
     val buffaloPathNodes = remember { addPathNodes(buffaloPathData) }
 
+    val t = animatedProgress.value
+    val pathNodes = when {
+        t < 0.33f-> {
+            val tt = map(t, 0f, 0.33f, 0f, 1f)
+            lerp(hippoPathNodes, elephantPathNodes, ease(tt, 3f))
+        }
+        t < 0.67f -> {
+            val tt = map(t, 0.33f, 0.67f, 0f, 1f)
+            lerp(elephantPathNodes, buffaloPathNodes, ease(tt, 3f))
+        }
+        else -> {
+            val tt = map(t, 0.67f, 1f, 0f, 1f)
+            lerp(buffaloPathNodes, hippoPathNodes, ease(tt, 3f))
+        }
+    }
+
     Image(
         painter = VectorPainter(
             defaultWidth = 409.6.dp,
             defaultHeight = 280.6.dp,
             viewportWidth = 409.6f,
             viewportHeight = 280.6f,
-        ) { _, _ ->
+        ) { vw, vh ->
+            // Draw a white background rect.
             Path(
-                pathData = lerp(hippoPathNodes, elephantPathNodes, animatedProgress.value),
+                pathData = remember { addPathNodes("h $vw v $vh h -$vw v -$vh") },
+                fill = SolidColor(Color.White),
+            )
+            Path(
+                pathData = pathNodes,
                 fill = SolidColor(hippoColor),
             )
         },
@@ -73,7 +95,7 @@ private fun lerp(a: List<PathNode>, b: List<PathNode>, t: Float): List<PathNode>
                 lerp(first.y, second.y, t),
             )
         } else if (first is PathNode.CurveTo && second is PathNode.CurveTo) {
-            val curveTo = PathNode.CurveTo(
+            PathNode.CurveTo(
                 lerp(first.x1, second.x1, t),
                 lerp(first.y1, second.y1, t),
                 lerp(first.x2, second.x2, t),
@@ -81,7 +103,6 @@ private fun lerp(a: List<PathNode>, b: List<PathNode>, t: Float): List<PathNode>
                 lerp(first.x3, second.x3, t),
                 lerp(first.y3, second.y3, t),
             )
-            curveTo
         } else {
             throw IllegalStateException("Unsupported SVG PathNode command")
         }
