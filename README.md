@@ -1,5 +1,5 @@
-# Ring of Circles
+# bees-and-bombs-compose
 
-Implements the Ring of Circles animation using Jetpack Compose.
+Implements multiple animations, including the Ring of Circles animation using Jetpack Compose.
 
 ![Ring of Circles](./art/ring-of-circles-compose.gif)
