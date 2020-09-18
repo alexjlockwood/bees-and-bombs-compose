@@ -18,7 +18,9 @@ import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.unit.dp
 
-/**Creates a composable 'playing with paths' polygon animation. */
+/**
+ * Creates a composable 'playing with paths' polygon animation.
+ */
 @Composable
 fun PlayingWithPaths(modifier: Modifier = Modifier) {
     val animatedProgress = animatedFloat(0f)
