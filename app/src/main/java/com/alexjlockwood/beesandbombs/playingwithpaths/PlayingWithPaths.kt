@@ -31,7 +31,7 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
             anim = repeatable(
                 iterations = AnimationConstants.Infinite,
                 animation = tween(durationMillis = 10000, easing = LinearEasing),
-            )
+            ),
         )
     }
 
