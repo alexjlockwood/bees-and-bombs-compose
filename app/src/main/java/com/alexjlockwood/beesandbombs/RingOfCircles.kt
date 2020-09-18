@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import kotlin.math.cos
-import kotlin.math.min
 import kotlin.math.sin
 
 private const val NUM_DOTS = 16
@@ -24,9 +23,8 @@ fun RingOfCircles(modifier: Modifier = Modifier) {
     val state = animationTimeMillis()
     Canvas(modifier = modifier) {
         val millis = state.value
-        val (width, height) = size
-        val ringRadius = min(width, height) * 0.35f
-        val waveRadius = min(width, height) * 0.10f
+        val ringRadius = size.minDimension * 0.35f
+        val waveRadius = size.minDimension * 0.10f
         val dotRadius = waveRadius / 4f
         val dotGap = dotRadius / 2f
 

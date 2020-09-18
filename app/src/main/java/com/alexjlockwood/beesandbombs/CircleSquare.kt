@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
 import kotlin.math.cos
-import kotlin.math.min
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -94,5 +93,5 @@ private fun DrawScope.drawCircles(sweepAngle: Float, rotation: Float, color: Col
 }
 
 private fun Size.circleRadius(): Float {
-    return min(width, height) / 4f / sqrt(2f)
+    return minDimension / 4f / sqrt(2f)
 }
