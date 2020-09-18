@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.Path
 import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.graphics.vector.PathNode.MoveTo
@@ -37,33 +38,29 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
         )
     }
 
-    val hippoColor = colorResource(R.color.hippo)
-    val elephantColor = colorResource(R.color.elephant)
-    val buffaloColor = colorResource(R.color.buffalo)
+    val animalColors = listOf(
+        colorResource(R.color.hippo),
+        colorResource(R.color.elephant),
+        colorResource(R.color.buffalo),
+    )
 
     val hippoPathData = stringResource(R.string.hippo)
     val elephantPathData = stringResource(R.string.elephant)
     val buffaloPathData = stringResource(R.string.buffalo)
-
-    val hippoPathNodes = remember { addPathNodes(hippoPathData) }
-    val elephantPathNodes = remember { addPathNodes(elephantPathData) }
-    val buffaloPathNodes = remember { addPathNodes(buffaloPathData) }
+    val animalPathNodes = remember {
+        listOf(
+            addPathNodes(hippoPathData),
+            addPathNodes(elephantPathData),
+            addPathNodes(buffaloPathData),
+        )
+    }
 
     val t = animatedProgress.value
-    val pathNodes = when {
-        t < 0.33f-> {
-            val tt = map(t, 0f, 0.33f, 0f, 1f)
-            lerp(hippoPathNodes, elephantPathNodes, ease(tt, 3f))
-        }
-        t < 0.67f -> {
-            val tt = map(t, 0.33f, 0.67f, 0f, 1f)
-            lerp(elephantPathNodes, buffaloPathNodes, ease(tt, 3f))
-        }
-        else -> {
-            val tt = map(t, 0.67f, 1f, 0f, 1f)
-            lerp(buffaloPathNodes, hippoPathNodes, ease(tt, 3f))
-        }
-    }
+    val startIndex = (t * 3).toInt()
+    val endIndex = (startIndex + 1) % animalPathNodes.size
+    val tt = t * 3 - (if (t < 1f / 3f) 0 else if (t < 2f / 3f) 1 else 2)
+    val color = lerp(animalColors[startIndex], animalColors[endIndex], ease(tt, 3f))
+    val pathNodes = lerp(animalPathNodes[startIndex], animalPathNodes[endIndex], ease(tt, 3f))
 
     Image(
         painter = VectorPainter(
@@ -77,9 +74,10 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
                 pathData = remember { addPathNodes("h $vw v $vh h -$vw v -$vh") },
                 fill = SolidColor(Color.White),
             )
+            // Draw the morphed animal path.
             Path(
                 pathData = pathNodes,
-                fill = SolidColor(hippoColor),
+                fill = SolidColor(color),
             )
         },
         modifier = modifier,
