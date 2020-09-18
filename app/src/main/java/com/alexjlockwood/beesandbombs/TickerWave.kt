@@ -15,6 +15,9 @@ import kotlin.math.*
 private const val mn = 0.866025f
 private val cs = arrayOf(Color(0xFF188C7C), Color(0xFFE6375A), Color(0xFF2C3A77))
 
+/**
+ * WORK IN PROGRESS
+ */
 @Composable
 fun TickerWave(modifier: Modifier = Modifier) {
     val state = animationTimeMillis()
@@ -29,7 +32,7 @@ fun TickerWave(modifier: Modifier = Modifier) {
         val h = sqrt(width * height) * 0.05f
         val w = h / 4
         val sp = 2 * h * mn
-        val n = ceil(.5f * max(width, height) / sp).toInt() +1
+        val n = ceil(.5f * max(width, height) / sp).toInt() + 1
 
         translate(width / 2, height / 2) {
             for (a in 0 until 3) {
