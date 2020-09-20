@@ -19,13 +19,13 @@ class MainActivity : AppCompatActivity() {
                 val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(16.dp)
 
                 // TODO: implement a screen-based navigation system (for now just uncomment the animation you want to show)
-                AnimalMorph(modifier)
+                //AnimalMorph(modifier)
                 //CircleSquare(modifier)
                 //CircularProgressIndicator(modifier)
                 //PlayingWithPaths(modifier)
                 //RingOfCircles(modifier)
                 //RotatingGlobe(modifier)
-                //SquareTwist(modifier)
+                SquareTwist(modifier)
                 //TickerWave(modifier)
                 //WaveSquare(modifier)
             }
