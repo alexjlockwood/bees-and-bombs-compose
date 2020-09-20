@@ -41,7 +41,7 @@ fun SquareTwist(modifier: Modifier = Modifier) {
         val s = size.minDimension / n
         val l = s * sqrt(2f) / 2f
         val tt = t * 2 - if (t < 0.5f) 0 else 1
-        val rotation = 90f * ease(tt, 1f)
+        val rotation = 90f * tt
         if (t < 0.25f || 0.75f < t) {
             drawRect(lightColor)
             for (i in 0..n) {
