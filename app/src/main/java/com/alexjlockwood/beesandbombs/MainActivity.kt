@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
                 //CircleWave(modifier)
                 //CircularProgressIndicator(modifier)
                 //PlayingWithPaths(modifier)
-                MazeGeneration(modifier)
                 //RingOfCircles(modifier)
                 //RotatingGlobe(modifier)
                 SquareTwist(modifier)
