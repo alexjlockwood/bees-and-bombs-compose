@@ -12,14 +12,14 @@ import androidx.compose.runtime.onActive
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
+import com.alexjlockwood.beesandbombs.utils.CatmullRom
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-private const val N = 720
+private const val N = 360
 private const val NUM_LINES = 18
 private const val NUM_WAVES = 18
 private const val LINE_LENGTH = 500f
@@ -43,40 +43,42 @@ fun WaveSquare(modifier: Modifier = Modifier) {
         )
     }
 
-    val path = remember { Path() }.apply { reset() }
+    val catmullRom = remember { CatmullRom() }
 
     val darkColor = if (isSystemInDarkTheme()) Color.White else Color.Black
     val t = animatedProgress.value
-
-    for (l in 0 until NUM_LINES) {
-        for (n in 0 until N) {
-            val qq = n.toFloat() / (N - 1)
-            val phase = map(n.toFloat(), 0f, N - 1f, 0f, TWO_PI * NUM_WAVES) - TWO_PI * t
-            var x = lerp(-LINE_LENGTH / 2f, LINE_LENGTH / 2f, qq)
-            var y = (SPACING * (l - 0.5f * (NUM_LINES - 1)))
-
-            val amount = ease(map(cos(TWO_PI * t + atan2(x, y) - 0.01f * dist(x, y, 0f, 0f)), 1f, -1f, 0f, 1f))
-            y += 0.5f * WAVE_HEIGHT * sin(phase + PI * l) * amount - 0.2f * WAVE_HEIGHT * amount
-            x -= CURL_AMOUNT * cos(phase + PI * l) * amount
-
-            if (n == 0) {
-                path.moveTo(x, y)
-            } else {
-                path.lineTo(x, y)
-            }
-        }
-    }
 
     Canvas(modifier = modifier) {
         withTransform({
             scale(size.minDimension / LINE_LENGTH)
             translate(size.width / 2f, size.height / 2f)
         }, {
-            drawPath(
-                path = path,
-                color = darkColor,
-                style = Stroke(width = 2f, miter = 1f),
-            )
+            for (l in 0 until NUM_LINES) {
+                catmullRom.lineStart()
+                for (n in 0 until N) {
+                    val qq = n.toFloat() / (N - 1)
+                    val phase = map(n.toFloat(), 0f, N - 1f, 0f, TWO_PI * NUM_WAVES) - TWO_PI * t
+                    var x = lerp(-LINE_LENGTH / 2f, LINE_LENGTH / 2f, qq)
+                    var y = (SPACING * (l - 0.5f * (NUM_LINES - 1)))
+
+                    val amount = ease(map(cos(TWO_PI * t + atan2(x, y) - 0.01f * dist(x, y, 0f, 0f)), 1f, -1f, 0f, 1f))
+                    y += 0.5f * WAVE_HEIGHT * sin(phase + PI * l) * amount - 0.2f * WAVE_HEIGHT * amount
+                    x -= CURL_AMOUNT * cos(phase + PI * l) * amount
+
+                    catmullRom.point(x, y)
+//                    if (n == 0) {
+//                        path.moveTo(x, y)
+//                    } else {
+//                        path.lineTo(x, y)
+//                    }
+                }
+                catmullRom.lineEnd()
+                drawPath(
+                    path = catmullRom.path,
+                    color = darkColor,
+                    style = Stroke(width = 2f, miter = 1f),
+                )
+            }
         })
     }
 }

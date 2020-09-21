@@ -76,10 +76,9 @@ fun SquareTwist(modifier: Modifier = Modifier) {
             }
         }
 
-        val strokeWidth = 16.dp.toPx()
         drawRect(
             color = darkColor,
-            style = Stroke(strokeWidth),
+            style = Stroke(16.dp.toPx()),
         )
     }
 }
