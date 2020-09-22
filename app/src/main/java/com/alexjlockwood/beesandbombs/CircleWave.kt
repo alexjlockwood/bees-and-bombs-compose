@@ -32,13 +32,14 @@ fun CircleWave(modifier: Modifier = Modifier) {
         val (width, height) = size
         val waveAmplitude = size.minDimension / 20
         val circleRadius = size.minDimension / 2f - 2 * waveAmplitude
+        val millis = state.value
 
         translate(width / 2f, height / 2f) {
             colors.forEachIndexed { colorIndex, color ->
                 path.reset()
                 for (i in 0 until N) {
                     val a = i * TWO_PI / N
-                    val t = state.value * SPEED
+                    val t = millis * SPEED
                     val c = cos(a * FREQUENCY - colorIndex * SHIFT + t)
                     val p = ((1 + cos(a - t)) / 2).pow(3)
                     val r = circleRadius + waveAmplitude * c * p
