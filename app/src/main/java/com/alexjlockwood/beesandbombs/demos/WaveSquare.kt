@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
-import com.alexjlockwood.beesandbombs.utils.CatmullRom
+import com.alexjlockwood.beesandbombs.demos.utils.*
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin

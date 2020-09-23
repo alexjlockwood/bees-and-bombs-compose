@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.demos.utils.PI
+import com.alexjlockwood.beesandbombs.demos.utils.animationTimeMillis
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt

@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs.utils
+package com.alexjlockwood.beesandbombs.demos.utils
 
 import androidx.compose.ui.graphics.Path
 import kotlin.math.pow

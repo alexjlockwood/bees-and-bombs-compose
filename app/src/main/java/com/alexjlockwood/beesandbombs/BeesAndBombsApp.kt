@@ -1,0 +1,33 @@
+package com.alexjlockwood.beesandbombs
+
+import androidx.activity.OnBackPressedDispatcher
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.savedinstancestate.rememberSavedInstanceState
+import androidx.compose.ui.Modifier
+
+private val DarkColorPalette = darkColors()
+private val LightColorPalette = lightColors()
+
+@Composable
+fun BeesAndBombsApp(backDispatcher: OnBackPressedDispatcher) {
+    val navigator: Navigator<DemoScreen> = rememberSavedInstanceState(saver = Navigator.saver(backDispatcher)) {
+        Navigator(DemoScreen.DemoList, backDispatcher)
+    }
+    MaterialTheme(colors = if (isSystemInDarkTheme()) DarkColorPalette else LightColorPalette) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Crossfade(navigator.current) { destination ->
+                when (destination) {
+                    DemoScreen.DemoList -> DemoList { title -> navigator.navigate(DemoScreen.DemoDetails(title)) }
+                    is DemoScreen.DemoDetails -> DemoDetails(destination)
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs.playingwithpaths
+package com.alexjlockwood.beesandbombs.demos.playingwithpaths
 
 import android.graphics.Path
 import android.graphics.PathMeasure

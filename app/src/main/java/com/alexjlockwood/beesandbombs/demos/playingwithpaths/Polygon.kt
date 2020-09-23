@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs.playingwithpaths
+package com.alexjlockwood.beesandbombs.demos.playingwithpaths
 
 import android.graphics.Path
 import android.graphics.PointF
@@ -120,7 +120,7 @@ private fun createPointsAlongPath(path: Path): List<PointAlongPath> {
 
 private fun lerp(start: PointF, end: PointF, fraction: Float): PointF {
     return PointF(
-        com.alexjlockwood.beesandbombs.lerp(start.x, end.x, fraction),
-        com.alexjlockwood.beesandbombs.lerp(start.y, end.y, fraction)
+        com.alexjlockwood.beesandbombs.demos.utils.lerp(start.x, end.x, fraction),
+        com.alexjlockwood.beesandbombs.demos.utils.lerp(start.y, end.y, fraction)
     )
 }

@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -10,6 +10,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
+import com.alexjlockwood.beesandbombs.demos.utils.PI
 import java.util.*
 import kotlin.math.floor
 import kotlin.math.pow
@@ -21,6 +22,7 @@ private const val S = 1 shl 1
 private const val W = 1 shl 2
 private const val E = 1 shl 3
 
+// TODO: update this to be dependent on runtime width/height
 private const val width = 1328f
 private const val height = 1328f
 
@@ -33,6 +35,9 @@ private const val cellSpacing = 8f
 private val cellWidth = floor((width - cellSpacing) / (cellSize + cellSpacing)).toInt()
 private val cellHeight = floor((height - cellSpacing) / (cellSize + cellSpacing)).toInt()
 
+/**
+ * WORK IN PROGRESS.
+ */
 @Composable
 fun MazeGeneration(modifier: Modifier = Modifier) {
     val numCells = cellWidth * cellHeight
@@ -309,7 +314,7 @@ private fun generateWilsons(cellWidth: Int, cellHeight: Int): List<Int> {
         do {
             if (remaining.isEmpty()) return true
             i0 = remaining.removeLast()
-            val cellsi0 =  cells[i0]
+            val cellsi0 = cells[i0]
         } while (cellsi0 != null && cellsi0 >= 0)
 
         previous[i0] = i0
@@ -346,24 +351,24 @@ private fun generateWilsons(cellWidth: Int, cellHeight: Int): List<Int> {
 
             // If this cell is part of the maze, we’re done walking.
             val cellsi1 = cells[i1]
-            if (cellsi1 != null && cellsi1>= 0) {
+            if (cellsi1 != null && cellsi1 >= 0) {
 
                 // Add the random walk to the maze by backtracking to the starting cell.
                 // Also erase this walk’s history to not interfere with subsequent walks.
                 while (previous[i1] != i1) {
                     i0 = previous[i1]
                     if (i1 == i0 + 1) {
-                        cells[i0] = cells[i0]?.or(E)?: E
-                        cells[i1] = cells[i1]?.or(W)?: W
+                        cells[i0] = cells[i0]?.or(E) ?: E
+                        cells[i1] = cells[i1]?.or(W) ?: W
                     } else if (i1 == i0 - 1) {
-                        cells[i0] = cells[i0]?.or(W)?: W
-                        cells[i1] = cells[i1]?.or(E)?: E
+                        cells[i0] = cells[i0]?.or(W) ?: W
+                        cells[i1] = cells[i1]?.or(E) ?: E
                     } else if (i1 == i0 + cellWidth) {
-                        cells[i0] = cells[i0]?.or(S)?: S
+                        cells[i0] = cells[i0]?.or(S) ?: S
                         cells[i1] = cells[i1]?.or(N) ?: N
                     } else {
                         cells[i0] = cells[i0]?.or(N) ?: N
-                        cells[i1] = cells[i1]?.or(S)?: S
+                        cells[i1] = cells[i1]?.or(S) ?: S
                     }
                     previous[i1] = -1
                     i1 = i0
@@ -379,7 +384,7 @@ private fun generateWilsons(cellWidth: Int, cellHeight: Int): List<Int> {
 
     while (!loopErasedRandomWalk());
 
-    val filteredCells =  cells.filterNotNull()
+    val filteredCells = cells.filterNotNull()
     if (filteredCells.size != cells.size) {
         throw RuntimeException("This shouldn't happen")
     }

@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs.playingwithpaths
+package com.alexjlockwood.beesandbombs.demos.playingwithpaths
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants

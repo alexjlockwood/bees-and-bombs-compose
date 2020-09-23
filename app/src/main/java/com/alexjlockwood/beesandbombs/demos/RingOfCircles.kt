@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -8,6 +8,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
+import com.alexjlockwood.beesandbombs.demos.utils.TWO_PI
+import com.alexjlockwood.beesandbombs.demos.utils.animationTimeMillis
+import com.alexjlockwood.beesandbombs.demos.utils.toDegrees
 import kotlin.math.cos
 import kotlin.math.sin
 

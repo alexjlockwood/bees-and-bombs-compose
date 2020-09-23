@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
@@ -10,6 +10,10 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.demos.utils.TWO_PI
+import com.alexjlockwood.beesandbombs.demos.utils.animationTimeMillis
+import com.alexjlockwood.beesandbombs.demos.utils.ease
+import com.alexjlockwood.beesandbombs.demos.utils.toDegrees
 import kotlin.math.*
 
 private const val mn = 0.866025f
@@ -50,8 +54,9 @@ fun TickerWave(modifier: Modifier = Modifier) {
                         var dd = max(abs(xx), abs(0.5f * xx + mn * yy))
                         dd = max(dd, abs(0.5f * xx - mn * yy))
                         val tt = (t + 100f - 0.0006f * dd) % 1f
-                        val q = lerp(-1.5f, 2.5f, (3 * tt) % 1).coerceIn(0f, 1f)
-                        val th = -atan2(xx, yy) + PI * (3 * tt).toInt() / 3f + ease(q) * TWO_PI / 6
+                        val q = com.alexjlockwood.beesandbombs.demos.utils.lerp(-1.5f, 2.5f, (3 * tt) % 1).coerceIn(0f, 1f)
+                        val th =
+                            -atan2(xx, yy) + com.alexjlockwood.beesandbombs.demos.utils.PI * (3 * tt).toInt() / 3f + ease(q) * TWO_PI / 6
                         withTransform({
                             translate(x, y)
                             rotate(th.toDegrees(), w / 2f, h / 2f)

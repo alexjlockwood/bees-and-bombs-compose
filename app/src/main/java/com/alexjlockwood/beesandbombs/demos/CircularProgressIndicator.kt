@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import android.view.animation.PathInterpolator
 import androidx.compose.animation.core.*

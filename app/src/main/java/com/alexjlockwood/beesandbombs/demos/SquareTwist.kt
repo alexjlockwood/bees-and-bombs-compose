@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants

@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State

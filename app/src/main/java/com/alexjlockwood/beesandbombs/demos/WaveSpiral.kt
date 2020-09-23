@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
-import com.alexjlockwood.beesandbombs.utils.CatmullRom
+import com.alexjlockwood.beesandbombs.demos.utils.*
 import kotlin.math.*
 
 private const val N = 12

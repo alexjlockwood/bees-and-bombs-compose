@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.R
+import com.alexjlockwood.beesandbombs.demos.utils.ease
 
 /**
  * WORK IN PROGRESS
@@ -89,17 +91,17 @@ private fun lerp(a: List<PathNode>, b: List<PathNode>, t: Float): List<PathNode>
         val (first, second) = it
         if (first is MoveTo && second is MoveTo) {
             MoveTo(
-                lerp(first.x, second.x, t),
-                lerp(first.y, second.y, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.x, second.x, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.y, second.y, t),
             )
         } else if (first is PathNode.CurveTo && second is PathNode.CurveTo) {
             PathNode.CurveTo(
-                lerp(first.x1, second.x1, t),
-                lerp(first.y1, second.y1, t),
-                lerp(first.x2, second.x2, t),
-                lerp(first.y2, second.y2, t),
-                lerp(first.x3, second.x3, t),
-                lerp(first.y3, second.y3, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.x1, second.x1, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.y1, second.y1, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.x2, second.x2, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.y2, second.y2, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.x3, second.x3, t),
+                com.alexjlockwood.beesandbombs.demos.utils.lerp(first.y3, second.y3, t),
             )
         } else {
             throw IllegalStateException("Unsupported SVG PathNode command")

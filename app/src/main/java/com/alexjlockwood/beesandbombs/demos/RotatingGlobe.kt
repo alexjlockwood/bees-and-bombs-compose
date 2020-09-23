@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import com.alexjlockwood.beesandbombs.demos.utils.TWO_PI
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin

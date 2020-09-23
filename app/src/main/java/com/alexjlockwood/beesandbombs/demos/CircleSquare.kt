@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
@@ -17,6 +17,10 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
+import com.alexjlockwood.beesandbombs.demos.utils.HALF_PI
+import com.alexjlockwood.beesandbombs.demos.utils.PI
+import com.alexjlockwood.beesandbombs.demos.utils.ease
+import com.alexjlockwood.beesandbombs.demos.utils.map
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt

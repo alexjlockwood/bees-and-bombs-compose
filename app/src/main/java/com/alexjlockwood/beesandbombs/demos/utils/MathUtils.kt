@@ -1,4 +1,4 @@
-package com.alexjlockwood.beesandbombs
+package com.alexjlockwood.beesandbombs.demos.utils
 
 import kotlin.math.pow
 import kotlin.math.sqrt
