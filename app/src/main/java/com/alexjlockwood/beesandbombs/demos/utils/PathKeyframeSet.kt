@@ -1,11 +1,75 @@
-package com.alexjlockwood.beesandbombs.demos.playingwithpaths
+package com.alexjlockwood.beesandbombs.demos.utils
 
 import android.graphics.Path
 import android.graphics.PathMeasure
+import android.graphics.PointF
 import android.os.Build
 import androidx.annotation.FloatRange
 import androidx.annotation.Size
 import androidx.compose.ui.graphics.vector.Path
+
+/**
+ * A utility class useful for simulating motion along a path.
+ */
+class PathKeyframeSet(val path: Path) {
+
+    constructor(pathData: String) : this(pathData.toAndroidPath())
+
+    private val pointsAlongPath = createPointsAlongPath(path)
+
+    /**
+     * Returns the [PointF] along the polygon path given a fraction in the interval [0,1].
+     * This is used to translate the black dot's location along each polygon path throughout
+     * the animation.
+     */
+    fun getPointAlongPath(fraction: Float): PointF {
+        if (fraction <= 0f) return pointsAlongPath.first().point
+        if (fraction >= 1f) return pointsAlongPath.last().point
+
+        // Binary search for the correct path point.
+        var low = 0
+        var high = pointsAlongPath.size - 1
+        while (low <= high) {
+            val mid = (low + high) / 2
+            val midFraction = pointsAlongPath[mid].fraction
+            when {
+                fraction < midFraction -> high = mid - 1
+                fraction > midFraction -> low = mid + 1
+                else -> return pointsAlongPath[mid].point
+            }
+        }
+
+        // Now high is below the fraction and low is above the fraction.
+        val start = pointsAlongPath[high]
+        val end = pointsAlongPath[low]
+        val intervalFraction = (fraction - start.fraction) / (end.fraction - start.fraction)
+        return lerp(start.point, end.point, intervalFraction)
+    }
+}
+
+/** Creates a lookup table that can be used to animate motion along a path. */
+private fun createPointsAlongPath(path: Path): List<PointAlongPath> {
+    // Note: see j.mp/path-approximate-compat to backport this call for pre-O devices
+    val approximatedPath = approximate(path, 0.5f)
+    val pointsAlongPath = mutableListOf<PointAlongPath>()
+    for (i in approximatedPath.indices step 3) {
+        val fraction = approximatedPath[i]
+        val point = PointF(approximatedPath[i + 1], approximatedPath[i + 2])
+        pointsAlongPath.add(PointAlongPath(fraction, point))
+    }
+    return pointsAlongPath
+}
+
+private fun lerp(start: PointF, end: PointF, fraction: Float): PointF {
+    return PointF(lerp(start.x, end.x, fraction), lerp(start.y, end.y, fraction))
+}
+
+/**
+ * Container class that holds the location of a [point] at the given
+ * [fraction] along a stroked path.
+ */
+private data class PointAlongPath(val fraction: Float, val point: PointF)
+
 
 private const val MAX_NUM_POINTS = 100
 private const val FRACTION_OFFSET = 0
@@ -15,7 +79,7 @@ private const val NUM_COMPONENTS = 3
 
 /** Implementation of [Path.approximate] for pre-O devices. */
 @Size(multiple = 3)
-fun approximate(path: Path, @FloatRange(from = 0.0) acceptableError: Float): FloatArray {
+private fun approximate(path: Path, @FloatRange(from = 0.0) acceptableError: Float): FloatArray {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         return path.approximate(acceptableError)
     }

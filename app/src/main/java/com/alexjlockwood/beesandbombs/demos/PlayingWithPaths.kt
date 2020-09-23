@@ -1,5 +1,7 @@
-package com.alexjlockwood.beesandbombs.demos.playingwithpaths
+package com.alexjlockwood.beesandbombs.demos
 
+import android.graphics.Path
+import android.graphics.PointF
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
 import androidx.compose.animation.core.LinearEasing
@@ -12,11 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.Group
-import androidx.compose.ui.graphics.vector.Path
-import androidx.compose.ui.graphics.vector.VectorPainter
-import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.graphics.vector.*
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.demos.utils.PathKeyframeSet
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Creates a composable 'playing with paths' polygon animation.
@@ -79,8 +81,8 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
 }
 
 // TODO: Should these be capitalized? Who knows... 🤷
-internal const val ViewportWidth = 1080f
-internal const val ViewportHeight = 1080f
+private const val ViewportWidth = 1080f
+private const val ViewportHeight = 1080f
 
 private val Polygons = arrayOf(
     Polygon(Color(0xffe84c65), 15, 362f, 2),
@@ -98,3 +100,72 @@ private val Polygons = arrayOf(
     Polygon(Color(0xffe84c65), 3, 90f, 14),
 )
 
+/**
+ * A helper class that contains information about each polygon's drawing commands and a
+ * [getPointAlongPath] method that supports animating motion along the polygon path.
+ */
+private class Polygon(val color: Color, sides: Int, radius: Float, laps: Int) {
+    /** The list of path nodes to use to draw the polygon path. */
+    val pathNodes: List<PathNode>
+
+    /** A precomputed lookup table that will be used to animate motion along the polygon path. */
+    private val pathKeyframeSet: PathKeyframeSet
+
+    init {
+        val polygonPoints = createPolygonPoints(sides, radius)
+        pathNodes = createPolygonPathNodes(polygonPoints)
+        pathKeyframeSet = PathKeyframeSet(createPolygonDotPath(polygonPoints, laps))
+    }
+
+    /**
+     * Returns the [PointF] along the polygon path given a fraction in the interval [0,1].
+     * This is used to translate the black dot's location along each polygon path throughout
+     * the animation.
+     */
+    fun getPointAlongPath(fraction: Float): PointF {
+        return pathKeyframeSet.getPointAlongPath(fraction)
+    }
+}
+
+/**
+ * Creates a list of points describing the coordinates of a polygon with the given
+ * number of [sides] and [radius].
+ */
+private fun createPolygonPoints(sides: Int, radius: Float): List<PointF> {
+    val startAngle = (3 * Math.PI / 2).toFloat()
+    val angleIncrement = (2 * Math.PI / sides).toFloat()
+    return (0..sides).map {
+        val theta = startAngle + angleIncrement * it
+        PointF(
+            ViewportWidth / 2 + (radius * cos(theta)),
+            ViewportHeight / 2 + (radius * sin(theta)),
+        )
+    }
+}
+
+/** Creates a list of [PathNode] drawing commands for the given list of [points]. */
+private fun createPolygonPathNodes(points: List<PointF>): List<PathNode> {
+    return points.mapIndexed { index, it ->
+        when (index) {
+            0 -> PathNode.MoveTo(it.x, it.y)
+            else -> PathNode.LineTo(it.x, it.y)
+        }
+    }
+}
+
+/**
+ * Creates a [Path] given a polygon's [points] and the number of [laps] its
+ * corresponding dot should travel during the animation.
+ */
+private fun createPolygonDotPath(points: List<PointF>, laps: Int): Path {
+    return Path().apply {
+        for (i in 0 until laps) {
+            points.forEachIndexed { index, it ->
+                when (index) {
+                    0 -> moveTo(it.x, it.y)
+                    else -> lineTo(it.x, it.y)
+                }
+            }
+        }
+    }
+}

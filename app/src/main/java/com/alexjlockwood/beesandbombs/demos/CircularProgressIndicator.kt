@@ -1,6 +1,5 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import android.view.animation.PathInterpolator
 import androidx.compose.animation.core.*
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Image
@@ -17,6 +16,7 @@ import androidx.compose.ui.graphics.vector.Path
 import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.demos.utils.PathEasing
 
 @Composable
 fun CircularProgressIndicator(modifier: Modifier = Modifier) {
@@ -60,20 +60,8 @@ private val TrimPathEndProp = FloatPropKey()
 private val TrimPathOffsetProp = FloatPropKey()
 private val RotationProp = FloatPropKey()
 
-private val TrimPathStartEasing = PathEasing(android.graphics.Path().apply {
-    lineTo(0.5f, 0f)
-    cubicTo(0.7f, 0f, 0.6f, 1f, 1f, 1f)
-})
-
-private val TrimPathEndEasing = PathEasing(android.graphics.Path().apply {
-    cubicTo(0.2f, 0f, 0.1f, 1f, 0.5f, 0.96f)
-    cubicTo(0.96f, 0.96f, 1f, 1f, 1f, 1f)
-})
-
-private class PathEasing(path: android.graphics.Path) : Easing {
-    private val pathInterpolator = PathInterpolator(path)
-    override fun invoke(fraction: Float) = pathInterpolator.getInterpolation(fraction)
-}
+private val TrimPathStartEasing = PathEasing("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1")
+private val TrimPathEndEasing = PathEasing("M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.96 0.96 1 1 1 1")
 
 private val CircularProgressIndicatorTransition = transitionDefinition<Int> {
     state(0) {
