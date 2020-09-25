@@ -8,10 +8,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.ListItem
+import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import kotlinx.android.parcel.Parcelize
 
@@ -27,16 +30,20 @@ sealed class DemoScreen : Parcelable {
 
 @Composable
 fun DemoList(onDemoSelected: (title: String) -> Unit) {
-    LazyColumnFor(DemoRegistry.keys.sorted()) {
-        ListItem(
-            text = {
-                Text(
-                    modifier = Modifier.preferredHeight(56.dp).wrapContentSize(Alignment.Center),
-                    text = it,
-                )
-            },
-            modifier = Modifier.clickable { onDemoSelected.invoke(it) },
-        )
+    Scaffold(
+        topBar = { TopAppBar({ Text(stringResource(R.string.app_name)) }) }
+    ) {
+        LazyColumnFor(DemoRegistry.keys.sorted()) {
+            ListItem(
+                text = {
+                    Text(
+                        modifier = Modifier.preferredHeight(56.dp).wrapContentSize(Alignment.Center),
+                        text = it,
+                    )
+                },
+                modifier = Modifier.clickable { onDemoSelected.invoke(it) },
+            )
+        }
     }
 }
 
