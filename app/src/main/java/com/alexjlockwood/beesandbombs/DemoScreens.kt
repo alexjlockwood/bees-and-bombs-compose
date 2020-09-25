@@ -25,7 +25,6 @@ sealed class DemoScreen : Parcelable {
     data class DemoDetails(val title: String) : DemoScreen()
 }
 
-
 @Composable
 fun DemoList(onDemoSelected: (title: String) -> Unit) {
     LazyColumnFor(DemoRegistry.keys.sorted()) {
@@ -45,6 +44,6 @@ fun DemoList(onDemoSelected: (title: String) -> Unit) {
 fun DemoDetails(demoDetails: DemoScreen.DemoDetails) {
     Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
         val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(16.dp)
-        DemoRegistry.getValue(demoDetails.title).content(modifier)
+        DemoRegistry.getValue(demoDetails.title)(modifier)
     }
 }

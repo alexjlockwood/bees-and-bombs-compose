@@ -4,21 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.alexjlockwood.beesandbombs.demos.*
 
-class Demo(val content: @Composable (modifier: Modifier) -> Unit)
-
-val DemoRegistry = mapOf(
-    "AnimalMorph" to Demo { modifier -> AnimalMorph(modifier) },
-    "CatmullRomCurves" to Demo { modifier -> CatmullRomCurves(modifier) },
-    "CircleSquare" to Demo { modifier -> CircleSquare(modifier) },
-    "CircleWave" to Demo { modifier -> CircleWave(modifier) },
-    "CircularProgressIndicator" to Demo { modifier -> CircularProgressIndicator(modifier) },
-    "LinearProgressIndicator" to Demo { modifier -> LinearProgressIndicator(modifier) },
-    "PlayingWithPaths" to Demo { modifier -> PlayingWithPaths(modifier) },
-    "RainbowWorm" to Demo { modifier -> RainbowWorm(modifier) },
-    "RingOfCircles" to Demo { modifier -> RingOfCircles(modifier) },
-    "RotatingGlobe" to Demo { modifier -> RotatingGlobe(modifier) },
-    "TickerWave" to Demo { modifier -> TickerWave(modifier) },
-    "SquareTwist" to Demo { modifier -> SquareTwist(modifier) },
-    "WaveSpiral" to Demo { modifier -> WaveSpiral(modifier) },
-    "WaveSquare" to Demo { modifier -> WaveSquare(modifier) },
+val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
+    "AnimalMorph" to { modifier -> AnimalMorph(modifier) },
+    "CatmullRomCurves" to { modifier -> CatmullRomCurves(modifier) },
+    "CircleSquare" to { modifier -> CircleSquare(modifier) },
+    "CircleWave" to { modifier -> CircleWave(modifier) },
+    "CircularProgressIndicator" to { modifier -> CircularProgressIndicator(modifier) },
+    "LinearProgressIndicator" to { modifier -> LinearProgressIndicator(modifier) },
+    "PlayingWithPaths" to { modifier -> PlayingWithPaths(modifier) },
+    "RainbowWorm" to { modifier -> RainbowWorm(modifier) },
+    "RingOfCircles" to { modifier -> RingOfCircles(modifier) },
+    "RotatingGlobe" to { modifier -> RotatingGlobe(modifier) },
+    "TickerWave" to { modifier -> TickerWave(modifier) },
+    "SquareTwist" to { modifier -> SquareTwist(modifier) },
+    "WaveSpiral" to { modifier -> WaveSpiral(modifier) },
+    "WaveSquare" to { modifier -> WaveSquare(modifier) },
 )
