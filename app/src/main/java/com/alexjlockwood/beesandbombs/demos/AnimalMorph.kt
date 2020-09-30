@@ -31,7 +31,7 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
             targetValue = 1f,
             anim = repeatable(
                 iterations = AnimationConstants.Infinite,
-                animation = tween(durationMillis = 3000, easing = LinearEasing),
+                animation = tween(durationMillis = 2500, easing = LinearEasing),
             ),
         )
     }
