@@ -66,11 +66,6 @@ fun WaveSquare(modifier: Modifier = Modifier) {
                     x -= CURL_AMOUNT * cos(phase + PI * l) * amount
 
                     catmullRom.point(x, y)
-//                    if (n == 0) {
-//                        path.moveTo(x, y)
-//                    } else {
-//                        path.lineTo(x, y)
-//                    }
                 }
                 catmullRom.lineEnd()
                 drawPath(

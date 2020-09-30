@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.vector.Path
  */
 class PathKeyframeSet(val path: Path) {
 
-    constructor(pathData: String) : this(pathData.toAndroidPath())
+    constructor(pathData: String) : this(pathData.asAndroidPath())
 
     private val pointsAlongPath = createPointsAlongPath(path)
 
