@@ -48,7 +48,7 @@ fun SquareTwist(modifier: Modifier = Modifier) {
                 for (j in 0..n) {
                     withTransform({
                         translate(i * s, j * s)
-                        rotate(rotation, 0f, 0f)
+                        rotate(rotation, Offset(0f, 0f))
                     }, {
                         drawRect(
                             color = darkColor,
@@ -64,7 +64,7 @@ fun SquareTwist(modifier: Modifier = Modifier) {
                 for (j in 0..n) {
                     withTransform({
                         translate((i + 0.5f) * s, (j + 0.5f) * s)
-                        rotate(rotation, 0f, 0f)
+                        rotate(rotation, Offset(0f, 0f))
                     }, {
                         drawRect(
                             color = lightColor,

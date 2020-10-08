@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -59,7 +60,7 @@ fun TickerWave(modifier: Modifier = Modifier) {
                             -atan2(xx, yy) + com.alexjlockwood.beesandbombs.demos.utils.PI * (3 * tt).toInt() / 3f + ease(q) * TWO_PI / 6
                         withTransform({
                             translate(x, y)
-                            rotate(th.toDegrees(), w / 2f, h / 2f)
+                            rotate(th.toDegrees(), Offset(w / 2f, h / 2f))
                         }, {
                             drawRect(
                                 color = cs[a],

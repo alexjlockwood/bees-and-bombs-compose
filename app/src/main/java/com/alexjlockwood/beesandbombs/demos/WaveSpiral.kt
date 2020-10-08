@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.onActive
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -55,7 +56,7 @@ fun WaveSpiral(modifier: Modifier = Modifier) {
                     withTransform({
                         translate(tx, ty)
                         if ((i + j) % 2 == 0) {
-                            rotate(90f, 0f, 0f)
+                            rotate(90f, Offset(0f, 0f))
                         }
                     }) {
                         drawTwistedLine(catmullRom, l, tt, darkColor)

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -66,7 +67,7 @@ private fun DrawScope.drawDot(
     }
 
     withTransform({
-        rotate(dotAngle.toDegrees())
+        rotate(dotAngle.toDegrees(), Offset(center.x, center.y))
         translate((ringRadius + sin(waveAngle) * waveRadius).toFloat(), 0f)
     }, {
         drawCircle(outlineColor, radius = dotRadius, style = Stroke(dotGap * 2))

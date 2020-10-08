@@ -1,8 +1,6 @@
 package com.alexjlockwood.beesandbombs
 
 import android.os.Parcelable
-import androidx.compose.foundation.Box
-import androidx.compose.foundation.ContentGravity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -55,7 +53,7 @@ fun DemoList(onDemoSelected: (title: String) -> Unit) {
 
 @Composable
 fun DemoDetails(demoDetails: DemoScreen.DemoDetails) {
-    Box(modifier = Modifier.fillMaxSize(), gravity = ContentGravity.Center) {
+    Box(modifier = Modifier.fillMaxSize(), alignment = Alignment.Center) {
         val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(16.dp)
         DemoRegistry.getValue(demoDetails.title)(modifier)
     }

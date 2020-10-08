@@ -48,18 +48,18 @@ fun CircleSquare(modifier: Modifier = Modifier) {
                 val tt = map(t, 0f, 0.5f, 0f, 1f)
                 val rotation = 90f * ease(tt, 3f)
 
-                rotate(rotation, 0f, 0f) {
+                rotate(rotation, Offset(0f, 0f)) {
                     drawCircles(270f, -360f * ease(tt, 3f), darkColor)
                 }
             } else {
                 val tt = map(t, 0.5f, 1f, 0f, 1f)
                 val rotation = -90f * ease(tt, 3f)
 
-                rotate(rotation, 0f, 0f) {
+                rotate(rotation, Offset(0f, 0f)) {
                     drawCircles(360f, 0f, darkColor)
                 }
 
-                rotate(-rotation, 0f, 0f) {
+                rotate(rotation, Offset(0f, 0f)) {
                     val rectSize = 2 * size.circleRadius()
                     drawRect(
                         color = lightColor,
@@ -81,7 +81,7 @@ private fun DrawScope.drawCircles(sweepAngle: Float, rotation: Float, color: Col
         val ty = r * sin(theta)
         withTransform({
             translate(-tx, -ty)
-            rotate(rotation, 0f, 0f)
+            rotate(rotation, Offset(0f, 0f))
         }, {
             val rectSize = 2 * (circleRadius - circleRadius / 16f)
             drawArc(
