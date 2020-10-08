@@ -56,8 +56,7 @@ fun MazeVisualization(modifier: Modifier = Modifier) {
                     RANDOMIZED_DEPTH_FIRST_TRAVERSAL -> generateMaze(RandomizedDepthFirstHeap(), mazeWidth, mazeHeight)
                     PRIMS_ALGORITHM -> generateMaze(PrimsHeap(), mazeWidth, mazeHeight)
                 }
-                val fills = arrayOfNulls<Color>(mazeWidth * mazeHeight).toMutableList()
-                // val frontier = mutableListOf((mazeWidth shr 1) + (mazeHeight shr 1) * mazeWidth)
+                val fills = cells.map { null }.toMutableList<Color?>()
                 val frontier = mutableListOf(0)
 
                 onDraw {
