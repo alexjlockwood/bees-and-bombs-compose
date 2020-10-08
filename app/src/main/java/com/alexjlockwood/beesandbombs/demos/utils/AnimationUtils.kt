@@ -5,8 +5,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.dispatch.withFrameMillis
 import androidx.compose.runtime.launchInComposition
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LifecycleOwnerAmbient
 import androidx.lifecycle.whenStarted
+import kotlin.math.pow
+import kotlin.math.sin
 
 /**
  * Returns a [State] holding a local animation time in milliseconds. The value always starts
@@ -29,3 +32,13 @@ fun animationTimeMillis(): State<Long> {
     return millisState
 }
 
+/**
+ * Easing function that interpolates a rainbow through RGB space.
+ */
+fun sinebow(t: Float): Color {
+    return Color(
+        red = sin(PI * (t + 0f / 3f)).pow(2),
+        green = sin(PI * (t + 1f / 3f)).pow(2),
+        blue = sin(PI * (t + 2f / 3f)).pow(2),
+    )
+}

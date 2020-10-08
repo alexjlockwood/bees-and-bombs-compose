@@ -1,5 +1,6 @@
 package com.alexjlockwood.beesandbombs
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.alexjlockwood.beesandbombs.demos.*
@@ -11,6 +12,7 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "CircleWave" to { modifier -> CircleWave(modifier) },
     "CircularProgressIndicator" to { modifier -> CircularProgressIndicator(modifier) },
     "LinearProgressIndicator" to { modifier -> LinearProgressIndicator(modifier) },
+    "MazeVisualization" to { MazeVisualization(Modifier.fillMaxSize()) },
     "PlayingWithPaths" to { modifier -> PlayingWithPaths(modifier) },
     "RainbowWorm" to { modifier -> RainbowWorm(modifier) },
     "RingOfCircles" to { modifier -> RingOfCircles(modifier) },

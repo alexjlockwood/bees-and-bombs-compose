@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.alexjlockwood.beesandbombs.demos.utils.PI
 import com.alexjlockwood.beesandbombs.demos.utils.animationTimeMillis
+import com.alexjlockwood.beesandbombs.demos.utils.sinebow
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -112,14 +112,6 @@ private fun perp(p0: Point, p1: Point): Point {
     val x10 = x1 - x0
     val l = sqrt(y10 * y10 + x10 * x10)
     return Point(-y10 / l, x10 / l)
-}
-
-private fun sinebow(t: Float): Color {
-    return Color(
-        red = sin(PI * (t + 0f / 3f)).pow(2),
-        green = sin(PI * (t + 1f / 3f)).pow(2),
-        blue = sin(PI * (t + 2f / 3f)).pow(2),
-    )
 }
 
 private data class Point(val x: Float, val y: Float)
