@@ -3,6 +3,7 @@ package com.alexjlockwood.beesandbombs.demos
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -24,9 +25,8 @@ fun RingOfCircles(modifier: Modifier = Modifier) {
     val darkColor = if (isSystemInDarkTheme()) Color.White else Color.Black
     val lightColor = if (isSystemInDarkTheme()) Color.Black else Color.White
 
-    val state = animationTimeMillis()
+    val millis by animationTimeMillis()
     Canvas(modifier = modifier) {
-        val millis = state.value
         val ringRadius = size.minDimension * 0.35f
         val waveRadius = size.minDimension * 0.10f
         val dotRadius = waveRadius / 4f

@@ -2,6 +2,7 @@ package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
@@ -24,7 +25,7 @@ private const val FREQUENCY = 8
 
 @Composable
 fun CircleWave(modifier: Modifier = Modifier) {
-    val state = animationTimeMillis()
+    val millis by animationTimeMillis()
     val path = remember { Path() }
     val colors = listOf(Color.Cyan, Color.Magenta, Color.Yellow)
 
@@ -34,7 +35,6 @@ fun CircleWave(modifier: Modifier = Modifier) {
         val (width, height) = size
         val waveAmplitude = size.minDimension / 20
         val circleRadius = size.minDimension / 2f - 2 * waveAmplitude
-        val millis = state.value
 
         translate(width / 2f, height / 2f) {
             colors.forEachIndexed { colorIndex, color ->

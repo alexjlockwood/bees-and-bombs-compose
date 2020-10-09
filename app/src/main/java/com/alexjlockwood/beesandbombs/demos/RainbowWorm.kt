@@ -2,6 +2,7 @@ package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,14 +19,14 @@ private const val N = 60
 
 @Composable
 fun RainbowWorm(modifier: Modifier = Modifier) {
-    val millis = animationTimeMillis()
+    val millis by animationTimeMillis()
     val path = remember { Path() }
 
     Canvas(modifier = modifier) {
         drawRect(Color.White)
 
         val (width, height) = size
-        val dt = millis.value * 1e-3f
+        val dt = millis * 1e-3f
         val padding = 48.dp.toPx()
         val x = (0 until N).map { padding + (width - 2 * padding) * it / N.toFloat() }
         val y = (0 until N).map { sin(it / 10f + dt) * height / 3f + height / 2f }

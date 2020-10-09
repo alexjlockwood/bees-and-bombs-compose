@@ -2,6 +2,7 @@ package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
@@ -25,11 +26,9 @@ private val cs = arrayOf(Color(0xFF188C7C), Color(0xFFE6375A), Color(0xFF2C3A77)
  */
 @Composable
 fun TickerWave(modifier: Modifier = Modifier) {
-    val state = animationTimeMillis()
+    val millis by animationTimeMillis()
 
     Canvas(modifier = modifier.clipToBounds()) {
-        val millis = state.value
-
         val t = (0.0002f * millis) % 1
         drawRect(Color(0xFFF5F4D5))
 
