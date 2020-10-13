@@ -15,7 +15,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
-import com.alexjlockwood.beesandbombs.demos.utils.*
+import com.alexjlockwood.beesandbombs.demos.utils.CatmullRom
+import com.alexjlockwood.beesandbombs.demos.utils.PI
+import com.alexjlockwood.beesandbombs.demos.utils.TWO_PI
+import com.alexjlockwood.beesandbombs.demos.utils.dist
+import com.alexjlockwood.beesandbombs.demos.utils.ease
+import com.alexjlockwood.beesandbombs.demos.utils.lerp
+import com.alexjlockwood.beesandbombs.demos.utils.map
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin

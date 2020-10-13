@@ -18,8 +18,17 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.dp
-import com.alexjlockwood.beesandbombs.demos.utils.*
-import kotlin.math.*
+import com.alexjlockwood.beesandbombs.demos.utils.CatmullRom
+import com.alexjlockwood.beesandbombs.demos.utils.TWO_PI
+import com.alexjlockwood.beesandbombs.demos.utils.dist
+import com.alexjlockwood.beesandbombs.demos.utils.ease
+import com.alexjlockwood.beesandbombs.demos.utils.lerp
+import com.alexjlockwood.beesandbombs.demos.utils.map
+import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 private const val N = 12
 private const val n = 60

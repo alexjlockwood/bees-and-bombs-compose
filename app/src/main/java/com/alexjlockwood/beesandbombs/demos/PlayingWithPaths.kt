@@ -14,7 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.vector.*
+import androidx.compose.ui.graphics.vector.Group
+import androidx.compose.ui.graphics.vector.Path
+import androidx.compose.ui.graphics.vector.PathNode
+import androidx.compose.ui.graphics.vector.VectorPainter
+import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.compose.ui.unit.dp
 import com.alexjlockwood.beesandbombs.demos.utils.PathKeyframeSet
 import kotlin.math.cos
