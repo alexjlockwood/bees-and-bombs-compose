@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -33,7 +34,7 @@ sealed class DemoScreen : Parcelable {
 }
 
 @Composable
-fun DemoList(onDemoSelected: (title: String) -> Unit) {
+fun DemoList(demoListState: LazyListState, onDemoSelected: (title: String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,7 +43,7 @@ fun DemoList(onDemoSelected: (title: String) -> Unit) {
             )
         }
     ) {
-        LazyColumnFor(DemoRegistry.keys.sorted()) {
+        LazyColumnFor(items = DemoRegistry.keys.sorted(), state = demoListState) {
             ListItem(
                 text = {
                     Text(
