@@ -1,9 +1,9 @@
 package com.alexjlockwood.beesandbombs.demos.utils
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedTask
 import androidx.compose.runtime.State
 import androidx.compose.runtime.dispatch.withFrameMillis
-import androidx.compose.runtime.launchInComposition
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LifecycleOwnerAmbient
@@ -19,7 +19,7 @@ import kotlin.math.sin
 fun animationTimeMillis(): State<Long> {
     val millisState = mutableStateOf(0L)
     val lifecycleOwner = LifecycleOwnerAmbient.current
-    launchInComposition {
+    LaunchedTask {
         val startTime = withFrameMillis { it }
         lifecycleOwner.whenStarted {
             while (true) {
