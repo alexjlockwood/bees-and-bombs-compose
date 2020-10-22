@@ -39,7 +39,7 @@ fun RainbowWorm(modifier: Modifier = Modifier) {
 
         for (i in (3..N)) {
             path.reset()
-            lineJoin(path, p0, p1!!, p2!!, p3, z[i - 1])
+            path.lineJoin(p0, p1!!, p2!!, p3, z[i - 1])
             drawPath(
                 path = path,
                 color = sinebow(i / N.toFloat()),
@@ -57,44 +57,44 @@ fun RainbowWorm(modifier: Modifier = Modifier) {
     }
 }
 
-// Compute stroke outline for segment p12.
-private fun lineJoin(path: Path, p0: Point?, p1: Point, p2: Point, p3: Point?, width: Float) {
-    val u12 = perp(p1, p2)
+// Computes the stroke outline for segment p1 to p2.
+private fun Path.lineJoin(p0: Point?, p1: Point, p2: Point, p3: Point?, width: Float) {
+    val u12 = calcPerp(p1, p2)
     val r = width / 2
     var a = Point(p1.x + u12.x * r, p1.y + u12.y * r)
     var b = Point(p2.x + u12.x * r, p2.y + u12.y * r)
     var c = Point(p2.x - u12.x * r, p2.y - u12.y * r)
     var d = Point(p1.x - u12.x * r, p1.y - u12.y * r)
 
-    // Clip ad and dc using average of u01 and u12.
+    // Clip line ad and line dc using the average of u01 and u12.
     if (p0 != null) {
-        val u01 = perp(p0, p1)
+        val u01 = calcPerp(p0, p1)
         val e = Point(p1.x + u01.x + u12.x, p1.y + u01.y + u12.y)
-        a = lineIntersect(p1, e, a, b)
-        d = lineIntersect(p1, e, d, c)
+        a = calcLineIntersect(a, b, p1, e)
+        d = calcLineIntersect(d, c, p1, e)
     }
 
-    // Clip ab and dc using average of u12 and u23.
+    // Clip line ab and line dc using the average of u12 and u23.
     if (p3 != null) {
-        val u23 = perp(p2, p3)
+        val u23 = calcPerp(p2, p3)
         val e = Point(p2.x + u23.x + u12.x, p2.y + u23.y + u12.y)
-        b = lineIntersect(p2, e, a, b)
-        c = lineIntersect(p2, e, d, c)
+        b = calcLineIntersect(a, b, p2, e)
+        c = calcLineIntersect(d, c, p2, e)
     }
 
-    path.moveTo(a.x, a.y)
-    path.lineTo(b.x, b.y)
-    path.lineTo(c.x, c.y)
-    path.lineTo(d.x, d.y)
-    path.close()
+    moveTo(a.x, a.y)
+    lineTo(b.x, b.y)
+    lineTo(c.x, c.y)
+    lineTo(d.x, d.y)
+    close()
 }
 
-// Compute intersection of two infinite lines ab and cd.
-private fun lineIntersect(p3: Point, p4: Point, p1: Point, p2: Point): Point {
-    val (x3, y3) = p3
-    val (x4, y4) = p4
+// Computes the intersection of two lines.
+private fun calcLineIntersect(p1: Point, p2: Point, p3: Point, p4: Point): Point {
     val (x1, y1) = p1
     val (x2, y2) = p2
+    val (x3, y3) = p3
+    val (x4, y4) = p4
     val x13 = x1 - x3
     val x21 = x2 - x1
     val x43 = x4 - x3
@@ -105,14 +105,14 @@ private fun lineIntersect(p3: Point, p4: Point, p1: Point, p2: Point): Point {
     return Point(x1 + ua * x21, y1 + ua * y21)
 }
 
-/** Compute the unit vector perpendicular to p01. */
-private fun perp(p0: Point, p1: Point): Point {
+// Computes the unit vector perpendicular to a line.
+private fun calcPerp(p0: Point, p1: Point): Point {
     val (x0, y0) = p0
     val (x1, y1) = p1
     val y10 = y1 - y0
     val x10 = x1 - x0
-    val l = sqrt(y10 * y10 + x10 * x10)
-    return Point(-y10 / l, x10 / l)
+    val len = sqrt(y10 * y10 + x10 * x10)
+    return Point(-y10 / len, x10 / len)
 }
 
 private data class Point(val x: Float, val y: Float)
