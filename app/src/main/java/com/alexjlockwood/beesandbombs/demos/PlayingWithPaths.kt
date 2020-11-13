@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.Group
 import androidx.compose.ui.graphics.vector.Path
 import androidx.compose.ui.graphics.vector.PathNode
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import com.alexjlockwood.beesandbombs.demos.utils.PathKeyframeSet
 import kotlin.math.cos
@@ -41,7 +41,7 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
         )
     }
 
-    val vectorPainter = VectorPainter(
+    val vectorPainter = rememberVectorPainter(
         defaultWidth = 48.dp,
         defaultHeight = 48.dp,
         viewportWidth = ViewportWidth,

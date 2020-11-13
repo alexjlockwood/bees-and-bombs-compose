@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.Group
 import androidx.compose.ui.graphics.vector.Path
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import com.alexjlockwood.beesandbombs.demos.utils.PathEasing
 
@@ -33,7 +33,7 @@ fun CircularProgressIndicator(modifier: Modifier = Modifier) {
         toState = 1,
     )
     Image(
-        painter = VectorPainter(
+        painter = rememberVectorPainter(
             defaultWidth = 48.dp,
             defaultHeight = 48.dp,
             viewportWidth = 48f,

@@ -14,8 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.vector.Path
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -61,7 +61,7 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
     val pathNodes = lerp(animalPathNodes[startIndex], animalPathNodes[endIndex], ease(tt, 3f))
 
     Image(
-        painter = VectorPainter(
+        painter = rememberVectorPainter(
             defaultWidth = 409.6.dp,
             defaultHeight = 280.6.dp,
             viewportWidth = 409.6f,

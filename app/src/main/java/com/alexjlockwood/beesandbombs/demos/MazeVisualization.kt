@@ -13,7 +13,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.translate
-import com.alexjlockwood.beesandbombs.demos.MazeType.*
+import com.alexjlockwood.beesandbombs.demos.MazeType.PRIMS_ALGORITHM
+import com.alexjlockwood.beesandbombs.demos.MazeType.RANDOMIZED_DEPTH_FIRST_TRAVERSAL
+import com.alexjlockwood.beesandbombs.demos.MazeType.RANDOMIZED_TRAVERSAL
 import com.alexjlockwood.beesandbombs.demos.utils.sinebow
 import java.util.*
 import kotlin.math.floor
@@ -59,7 +61,7 @@ fun MazeVisualization(modifier: Modifier = Modifier) {
                 val fills = cells.map { null }.toMutableList<Color?>()
                 val frontier = mutableListOf(0)
 
-                onDraw {
+                onDrawBehind {
                     drawRect(Color.Black)
 
                     translate(

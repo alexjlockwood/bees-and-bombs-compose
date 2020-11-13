@@ -1,7 +1,6 @@
 package com.alexjlockwood.beesandbombs
 
 import android.os.Parcelable
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -9,11 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.ListItem
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -43,16 +43,18 @@ fun DemoList(demoListState: LazyListState, onDemoSelected: (title: String) -> Un
             )
         }
     ) {
-        LazyColumnFor(items = DemoRegistry.keys.sorted(), state = demoListState) {
-            ListItem(
-                text = {
-                    Text(
-                        modifier = Modifier.preferredHeight(56.dp).wrapContentSize(Alignment.Center),
-                        text = it,
-                    )
-                },
-                modifier = Modifier.clickable { onDemoSelected.invoke(it) },
-            )
+        LazyColumn(state = demoListState) {
+            items(DemoRegistry.keys.sorted()) {
+                ListItem(
+                    text = {
+                        Text(
+                            modifier = Modifier.preferredHeight(56.dp).wrapContentSize(Alignment.Center),
+                            text = it,
+                        )
+                    },
+                    modifier = Modifier.clickable { onDemoSelected.invoke(it) },
+                )
+            }
         }
     }
 }

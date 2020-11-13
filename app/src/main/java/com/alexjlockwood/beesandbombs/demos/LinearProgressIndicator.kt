@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.Group
 import androidx.compose.ui.graphics.vector.Path
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.graphics.vector.addPathNodes
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import com.alexjlockwood.beesandbombs.demos.utils.PathEasing
 import com.alexjlockwood.beesandbombs.demos.utils.PathKeyframeSet
@@ -54,7 +54,7 @@ fun LinearProgressIndicator(modifier: Modifier = Modifier) {
 
     val darkColor = if (isSystemInDarkTheme()) Color.White else Color.Black
     Image(
-        painter = VectorPainter(
+        painter = rememberVectorPainter(
             defaultWidth = 360.dp,
             defaultHeight = 10.dp,
             viewportWidth = 360f,
