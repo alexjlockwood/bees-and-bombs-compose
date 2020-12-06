@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 sealed class DemoScreen : Parcelable {
 
@@ -61,7 +61,7 @@ fun DemoList(demoListState: LazyListState, onDemoSelected: (title: String) -> Un
 
 @Composable
 fun DemoDetails(demoDetails: DemoScreen.DemoDetails) {
-    Box(modifier = Modifier.fillMaxSize(), alignment = Alignment.Center) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         val modifier = Modifier.aspectRatio(1f).fillMaxSize().padding(16.dp)
         DemoRegistry.getValue(demoDetails.title)(modifier)
     }

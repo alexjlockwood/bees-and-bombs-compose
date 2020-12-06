@@ -6,7 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.dispatch.withFrameMillis
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LifecycleOwnerAmbient
+import androidx.compose.ui.platform.AmbientLifecycleOwner
 import androidx.lifecycle.whenStarted
 import kotlin.math.pow
 import kotlin.math.sin
@@ -18,7 +18,7 @@ import kotlin.math.sin
 @Composable
 fun animationTimeMillis(): State<Long> {
     val millisState = mutableStateOf(0L)
-    val lifecycleOwner = LifecycleOwnerAmbient.current
+    val lifecycleOwner = AmbientLifecycleOwner.current
     LaunchedEffect(true) {
         val startTime = withFrameMillis { it }
         lifecycleOwner.whenStarted {
