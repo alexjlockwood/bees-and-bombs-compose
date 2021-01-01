@@ -1,9 +1,8 @@
 package com.alexjlockwood.beesandbombs.demos
 
 import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
@@ -29,8 +28,7 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
     onActive {
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = repeatable(
-                iterations = AnimationConstants.Infinite,
+            anim = infiniteRepeatable(
                 animation = tween(durationMillis = 2500, easing = LinearEasing),
             ),
         )

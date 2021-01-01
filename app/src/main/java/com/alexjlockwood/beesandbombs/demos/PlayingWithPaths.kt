@@ -5,6 +5,7 @@ import android.graphics.PointF
 import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.AnimationConstants
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -34,8 +35,7 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
         // Begin the animation as soon as the first composition is applied.
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = repeatable(
-                iterations = AnimationConstants.Infinite,
+            anim = infiniteRepeatable(
                 animation = tween(durationMillis = 10000, easing = LinearEasing),
             ),
         )

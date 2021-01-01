@@ -1,9 +1,8 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import androidx.compose.animation.core.AnimationConstants
 import androidx.compose.animation.core.FloatPropKey
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.repeatable
+import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.transitionDefinition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.transition
@@ -84,20 +83,16 @@ private val CircularProgressIndicatorTransition = transitionDefinition<Int> {
     }
 
     transition(fromState = 0, toState = 1) {
-        TrimPathStartProp using repeatable(
-            iterations = AnimationConstants.Infinite,
+        TrimPathStartProp using infiniteRepeatable(
             animation = tween(durationMillis = 1333, easing = TrimPathStartEasing)
         )
-        TrimPathEndProp using repeatable(
-            iterations = AnimationConstants.Infinite,
+        TrimPathEndProp using infiniteRepeatable(
             animation = tween(durationMillis = 1333, easing = TrimPathEndEasing)
         )
-        TrimPathOffsetProp using repeatable(
-            iterations = AnimationConstants.Infinite,
+        TrimPathOffsetProp using infiniteRepeatable(
             animation = tween(durationMillis = 1333, easing = LinearEasing)
         )
-        RotationProp using repeatable(
-            iterations = AnimationConstants.Infinite,
+        RotationProp using infiniteRepeatable(
             animation = tween(durationMillis = 4444, easing = LinearEasing)
         )
     }
