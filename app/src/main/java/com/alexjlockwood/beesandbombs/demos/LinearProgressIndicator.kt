@@ -1,13 +1,13 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import androidx.compose.animation.animatedFloat
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,11 +22,12 @@ import com.alexjlockwood.beesandbombs.demos.utils.PathKeyframeSet
 
 @Composable
 fun LinearProgressIndicator(modifier: Modifier = Modifier) {
-    val animatedProgress = animatedFloat(0f)
-    onActive {
+    val animatedProgress = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = infiniteRepeatable(
+            animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 2000, easing = LinearEasing),
             ),
         )
@@ -45,10 +46,10 @@ fun LinearProgressIndicator(modifier: Modifier = Modifier) {
     val translateEasing2 = remember { PathEasing("M 0 0 L 0.2 0 C 0.395 0 0.474 0.206 0.591 0.417 C 0.715 0.639 0.816 0.974 1 1") }
 
     val t = animatedProgress.value
-    val scale1 = scaleKeyframeSet1.getPointAlongPath(scaleEasing1(t)).y
-    val translate1 = translateKeyframeSet1.getPointAlongPath(translateEasing1(t)).x
-    val scale2 = scaleKeyframeSet2.getPointAlongPath(scaleEasing2(t)).y
-    val translate2 = translateKeyframeSet2.getPointAlongPath(translateEasing2(t)).x
+    val scale1 = scaleKeyframeSet1.getPointAlongPath(scaleEasing1.transform(t)).y
+    val translate1 = translateKeyframeSet1.getPointAlongPath(translateEasing1.transform(t)).x
+    val scale2 = scaleKeyframeSet2.getPointAlongPath(scaleEasing2.transform((t))).y
+    val translate2 = translateKeyframeSet2.getPointAlongPath(translateEasing2.transform((t))).x
 
     val darkColor = if (isSystemInDarkTheme()) Color.White else Color.Black
     Image(
@@ -89,6 +90,7 @@ fun LinearProgressIndicator(modifier: Modifier = Modifier) {
                 }
             }
         },
+        contentDescription = null,
         modifier = modifier,
     )
 }

@@ -2,15 +2,13 @@ package com.alexjlockwood.beesandbombs.demos
 
 import android.graphics.Path
 import android.graphics.PointF
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,12 +28,13 @@ import kotlin.math.sin
  */
 @Composable
 fun PlayingWithPaths(modifier: Modifier = Modifier) {
-    val animatedProgress = animatedFloat(0f)
-    onActive {
+    val animatedProgress = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
         // Begin the animation as soon as the first composition is applied.
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = infiniteRepeatable(
+            animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 10000, easing = LinearEasing),
             ),
         )
@@ -81,10 +80,10 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
     Image(
         painter = vectorPainter,
         modifier = modifier,
+        contentDescription = null,
     )
 }
 
-// TODO: Should these be capitalized? Who knows... 🤷
 private const val ViewportWidth = 1080f
 private const val ViewportHeight = 1080f
 

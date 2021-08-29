@@ -9,5 +9,6 @@ class PathEasing(path: Path) : Easing {
     constructor(pathData: String) : this(pathData.asAndroidPath())
 
     private val pathInterpolator = PathInterpolator(path)
-    override fun invoke(fraction: Float) = pathInterpolator.getInterpolation(fraction)
+
+    override fun transform(fraction: Float) = pathInterpolator.getInterpolation(fraction)
 }

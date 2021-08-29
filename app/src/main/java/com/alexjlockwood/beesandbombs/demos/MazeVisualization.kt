@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -41,8 +42,8 @@ enum class MazeType {
 @Composable
 fun MazeVisualization(modifier: Modifier = Modifier) {
     val mazeTypes = MazeType.values()
-    var mazeType by mutableStateOf(mazeTypes[0])
-    var frameCounter by mutableStateOf(0)
+    var mazeType by remember { mutableStateOf(mazeTypes[0]) }
+    var frameCounter by remember { mutableStateOf(0) }
     Box(
         modifier
             .clickable(onClick = {

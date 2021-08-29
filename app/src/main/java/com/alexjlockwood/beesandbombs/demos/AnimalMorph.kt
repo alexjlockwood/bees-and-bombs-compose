@@ -1,12 +1,12 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import androidx.compose.animation.animatedFloat
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,11 +24,12 @@ import com.alexjlockwood.beesandbombs.demos.utils.lerp
 
 @Composable
 fun AnimalMorph(modifier: Modifier = Modifier) {
-    val animatedProgress = animatedFloat(0f)
-    onActive {
+    val animatedProgress = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = infiniteRepeatable(
+            animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 2500, easing = LinearEasing),
             ),
         )
@@ -76,6 +77,7 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
                 fill = SolidColor(color),
             )
         },
+        contentDescription = null,
         modifier = modifier,
     )
 }

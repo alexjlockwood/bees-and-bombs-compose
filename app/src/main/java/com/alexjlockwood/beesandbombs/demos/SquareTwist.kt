@@ -1,15 +1,14 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import androidx.compose.animation.animatedFloat
-import androidx.compose.animation.core.AnimationConstants
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.repeatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.onActive
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
@@ -22,11 +21,12 @@ import kotlin.math.sqrt
 
 @Composable
 fun SquareTwist(modifier: Modifier = Modifier) {
-    val animatedProgress = animatedFloat(0f)
-    onActive {
+    val animatedProgress = remember { Animatable(0f) }
+
+    LaunchedEffect(Unit) {
         animatedProgress.animateTo(
             targetValue = 1f,
-            anim = infiniteRepeatable(
+            animationSpec = infiniteRepeatable(
                 animation = tween(durationMillis = 2500, easing = LinearEasing),
             ),
         )

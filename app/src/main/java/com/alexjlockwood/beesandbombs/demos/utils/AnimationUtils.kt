@@ -3,11 +3,10 @@ package com.alexjlockwood.beesandbombs.demos.utils
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.dispatch.withFrameMillis
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientLifecycleOwner
-import androidx.lifecycle.whenStarted
 import kotlin.math.pow
 import kotlin.math.sin
 
@@ -17,15 +16,12 @@ import kotlin.math.sin
  */
 @Composable
 fun animationTimeMillis(): State<Long> {
-    val millisState = mutableStateOf(0L)
-    val lifecycleOwner = AmbientLifecycleOwner.current
-    LaunchedEffect(true) {
+    val millisState = remember { mutableStateOf(0L) }
+    LaunchedEffect(Unit) {
         val startTime = withFrameMillis { it }
-        lifecycleOwner.whenStarted {
-            while (true) {
-                withFrameMillis { frameTime ->
-                    millisState.value = frameTime - startTime
-                }
+        while (true) {
+            withFrameMillis { frameTime ->
+                millisState.value = frameTime - startTime
             }
         }
     }

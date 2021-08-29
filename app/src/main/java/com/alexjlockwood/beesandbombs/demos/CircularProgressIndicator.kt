@@ -1,14 +1,14 @@
 package com.alexjlockwood.beesandbombs.demos
 
-import androidx.compose.animation.core.FloatPropKey
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.transitionDefinition
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.transition
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,11 +26,12 @@ import com.alexjlockwood.beesandbombs.demos.utils.PathEasing
 fun CircularProgressIndicator(modifier: Modifier = Modifier) {
     val darkColor = if (isSystemInDarkTheme()) Color.White else Color.Black
 
-    val state = transition(
-        definition = CircularProgressIndicatorTransition,
-        initState = 0,
-        toState = 1,
-    )
+    val transition = rememberInfiniteTransition()
+    val trimPathStart by transition.animateFloat(0f, 0.75f, infiniteRepeatable(tween(durationMillis = 1333, easing = TrimPathStartEasing)))
+    val trimPathEnd by transition.animateFloat(0.03f, 0.78f, infiniteRepeatable(tween(durationMillis = 1333, easing = TrimPathEndEasing)))
+    val trimPathOffset by transition.animateFloat(0f, 0.25f, infiniteRepeatable(tween(durationMillis = 1333, easing = LinearEasing)))
+    val rotation by transition.animateFloat(0f, 720f, infiniteRepeatable(tween(durationMillis = 4444, easing = LinearEasing)))
+
     Image(
         painter = rememberVectorPainter(
             defaultWidth = 48.dp,
@@ -41,7 +42,7 @@ fun CircularProgressIndicator(modifier: Modifier = Modifier) {
             Group(
                 translationX = 24f,
                 translationY = 24f,
-                rotation = state[RotationProp],
+                rotation = rotation,
             ) {
                 Path(
                     pathData = remember { addPathNodes("m 0 -18 a 18 18 0 1 1 0 36 a 18 18 0 1 1 0 -36") },
@@ -49,51 +50,16 @@ fun CircularProgressIndicator(modifier: Modifier = Modifier) {
                     strokeLineCap = StrokeCap.Square,
                     strokeLineJoin = StrokeJoin.Miter,
                     strokeLineWidth = 4f,
-                    trimPathStart = state[TrimPathStartProp],
-                    trimPathEnd = state[TrimPathEndProp],
-                    trimPathOffset = state[TrimPathOffsetProp],
+                    trimPathStart = trimPathStart,
+                    trimPathEnd = trimPathEnd,
+                    trimPathOffset = trimPathOffset,
                 )
             }
         },
+        contentDescription = null,
         modifier = modifier,
     )
 }
 
-private val TrimPathStartProp = FloatPropKey()
-private val TrimPathEndProp = FloatPropKey()
-private val TrimPathOffsetProp = FloatPropKey()
-private val RotationProp = FloatPropKey()
-
 private val TrimPathStartEasing = PathEasing("M 0 0 L 0.5 0 C 0.7 0 0.6 1 1 1")
 private val TrimPathEndEasing = PathEasing("M 0 0 C 0.2 0 0.1 1 0.5 0.96 C 0.96 0.96 1 1 1 1")
-
-private val CircularProgressIndicatorTransition = transitionDefinition<Int> {
-    state(0) {
-        this[TrimPathStartProp] = 0f
-        this[TrimPathEndProp] = 0.03f
-        this[TrimPathOffsetProp] = 0f
-        this[RotationProp] = 0f
-    }
-
-    state(1) {
-        this[TrimPathStartProp] = 0.75f
-        this[TrimPathEndProp] = 0.78f
-        this[TrimPathOffsetProp] = 0.25f
-        this[RotationProp] = 720f
-    }
-
-    transition(fromState = 0, toState = 1) {
-        TrimPathStartProp using infiniteRepeatable(
-            animation = tween(durationMillis = 1333, easing = TrimPathStartEasing)
-        )
-        TrimPathEndProp using infiniteRepeatable(
-            animation = tween(durationMillis = 1333, easing = TrimPathEndEasing)
-        )
-        TrimPathOffsetProp using infiniteRepeatable(
-            animation = tween(durationMillis = 1333, easing = LinearEasing)
-        )
-        RotationProp using infiniteRepeatable(
-            animation = tween(durationMillis = 4444, easing = LinearEasing)
-        )
-    }
-}
