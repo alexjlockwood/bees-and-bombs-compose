@@ -58,6 +58,7 @@ fun LinearProgressIndicator(modifier: Modifier = Modifier) {
             defaultHeight = 10.dp,
             viewportWidth = 360f,
             viewportHeight = 10f,
+            autoMirror = false,
         ) { _, _ ->
             Group(
                 translationX = 180f,

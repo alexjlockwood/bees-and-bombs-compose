@@ -46,7 +46,10 @@ fun DemoList(demoListState: LazyListState, onDemoSelected: (title: String) -> Un
             )
         }
     ) {
-        LazyColumn(state = demoListState) {
+        LazyColumn(
+            modifier = Modifier.padding(it),
+            state = demoListState,
+        ) {
             items(DemoRegistry.keys.sorted()) {
                 ListItem(
                     text = {

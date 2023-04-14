@@ -38,6 +38,7 @@ fun CircularProgressIndicator(modifier: Modifier = Modifier) {
             defaultHeight = 48.dp,
             viewportWidth = 48f,
             viewportHeight = 48f,
+            autoMirror = false,
         ) { _, _ ->
             Group(
                 translationX = 24f,

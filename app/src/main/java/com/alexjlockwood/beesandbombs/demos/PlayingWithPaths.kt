@@ -45,6 +45,7 @@ fun PlayingWithPaths(modifier: Modifier = Modifier) {
         defaultHeight = 48.dp,
         viewportWidth = ViewportWidth,
         viewportHeight = ViewportHeight,
+        autoMirror = false,
     ) { vw, vh ->
         // Draw a white background rect.
         Path(

@@ -65,6 +65,7 @@ fun AnimalMorph(modifier: Modifier = Modifier) {
             defaultHeight = 280.6.dp,
             viewportWidth = 409.6f,
             viewportHeight = 280.6f,
+            autoMirror = false,
         ) { vw, vh ->
             // Draw a white background rect.
             Path(
