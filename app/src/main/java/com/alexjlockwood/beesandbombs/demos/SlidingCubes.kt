@@ -39,7 +39,7 @@ fun SlidingCubes(modifier: Modifier = Modifier) {
 
     val helper = remember {
         IsometricProjectionHelper().apply {
-            scale(100f, 100f, 100f)
+            scale(120f, 120f, 120f)
         }
     }
 
@@ -54,11 +54,11 @@ fun SlidingCubes(modifier: Modifier = Modifier) {
             for (x in NumCubes downTo -NumCubes) {
                 for (y in NumCubes downTo -NumCubes) {
                     val d = distanceManhattan(x, y)
-                    if (d > NumCubes) {
+                    if (d > 10) {
                         continue
                     }
 
-                    val t = ease((animatedProgress.value * 3.5f - distanceCartesian(x, y) / 5).coerceIn(0f, 1f))
+                    val t = ease((animatedProgress.value * 3.5f - distanceCartesian(x, y) / 4).coerceIn(0f, 1f))
                     drawCube(
                         helper = helper,
                         fillColor = fillColor,
@@ -95,36 +95,36 @@ private fun DrawScope.drawCube(
     helper.translate(x, y, z)
     helper.rotateZ(adjustedAngle - PI / 4)
 
-    val p1 = Path()
-    p1.moveTo(helper.transform(0.5f, -0.5f, 0.5f))
-    p1.lineTo(helper.transform(0.5f, 0.5f, 0.5f))
-    p1.lineTo(helper.transform(-0.5f, 0.5f, 0.5f))
-    p1.lineTo(helper.transform(-0.5f, 0.5f, -0.5f))
-    p1.lineTo(helper.transform(-0.5f, -0.5f, -0.5f))
-    p1.lineTo(helper.transform(0.5f, -0.5f, -0.5f))
-    p1.close()
+    val path = Path()
+    path.moveTo(helper.transform(0.5f, -0.5f, 0.5f))
+    path.lineTo(helper.transform(0.5f, 0.5f, 0.5f))
+    path.lineTo(helper.transform(-0.5f, 0.5f, 0.5f))
+    path.lineTo(helper.transform(-0.5f, 0.5f, -0.5f))
+    path.lineTo(helper.transform(-0.5f, -0.5f, -0.5f))
+    path.lineTo(helper.transform(0.5f, -0.5f, -0.5f))
+    path.close()
 
     drawPath(
-        path = p1,
+        path = path,
         color = fillColor,
     )
 
     drawPath(
-        path = p1,
+        path = path,
         color = strokeColor,
         style = Stroke(width = CubeStrokeWidth.toPx()),
     )
 
-    val p2 = Path()
-    p2.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
-    p2.lineTo(helper.transform(0.5f, -0.5f, 0.5f))
-    p2.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
-    p2.lineTo(helper.transform(-0.5f, 0.5f, 0.5f))
-    p2.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
-    p2.lineTo(helper.transform(-0.5f, -0.5f, -0.5f))
+    path.reset()
+    path.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
+    path.lineTo(helper.transform(0.5f, -0.5f, 0.5f))
+    path.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
+    path.lineTo(helper.transform(-0.5f, 0.5f, 0.5f))
+    path.moveTo(helper.transform(-0.5f, -0.5f, 0.5f))
+    path.lineTo(helper.transform(-0.5f, -0.5f, -0.5f))
 
     drawPath(
-        path = p2,
+        path = path,
         color = strokeColor,
         style = Stroke(width = CubeStrokeWidth.toPx() / 2),
     )
@@ -141,8 +141,8 @@ private fun distanceCartesian(x: Int, y: Int) = sqrt((x * x + y * y).toFloat())
 private fun distanceManhattan(x: Int, y: Int) = abs(x) + abs(y)
 
 private const val NumCubes = 14
-private val CubeStrokeWidth = 1.5.dp
-private val BorderStrokeWidth = 8.dp
+private val CubeStrokeWidth = 2.5.dp
+private val BorderStrokeWidth = 12.dp
 
 /**
  * Helper class that handles the transformation and projection of 3D points

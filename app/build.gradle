@@ -38,12 +38,13 @@ android {
         kotlinCompilerExtensionVersion compose_compiler_version
         kotlinCompilerVersion kotlin_version
     }
+    namespace 'com.alexjlockwood.beesandbombs'
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.10.0'
-    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation 'androidx.activity:activity-compose:1.7.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
 

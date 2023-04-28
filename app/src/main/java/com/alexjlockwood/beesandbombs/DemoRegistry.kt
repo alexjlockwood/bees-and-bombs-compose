@@ -13,13 +13,6 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "CircleSquare" to { modifier -> CircleSquare(modifier) },
     "CircleWave" to { modifier -> CircleWave(modifier) },
     "CircularProgressIndicator" to { modifier -> CircularProgressIndicator(modifier) },
-    "SlidingCubes" to {
-        SlidingCubes(
-            Modifier
-                .fillMaxSize()
-                .padding(horizontal = 176.dp, vertical = 16.dp)
-        )
-    },
     "LinearProgressIndicator" to { modifier -> LinearProgressIndicator(modifier) },
     "MazeVisualization" to { MazeVisualization(Modifier.fillMaxSize()) },
     "PlayingWithPaths" to { modifier -> PlayingWithPaths(modifier) },
@@ -27,6 +20,7 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "RingOfCircles" to { modifier -> RingOfCircles(modifier) },
     "RotatingGlobe" to { modifier -> RotatingGlobe(modifier) },
     "TickerWave" to { modifier -> TickerWave(modifier) },
+    "SlidingCubes" to { modifier -> SlidingCubes(modifier) },
     "SquareTwist" to { modifier -> SquareTwist(modifier) },
     "WaveSpiral" to { modifier -> WaveSpiral(modifier) },
     "WaveSquare" to { modifier -> WaveSquare(modifier) },
