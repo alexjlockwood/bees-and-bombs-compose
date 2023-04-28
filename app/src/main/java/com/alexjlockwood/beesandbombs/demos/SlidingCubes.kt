@@ -25,7 +25,7 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 @Composable
-fun FallingCubes(modifier: Modifier = Modifier) {
+fun SlidingCubes(modifier: Modifier = Modifier) {
     val animatedProgress = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
@@ -39,7 +39,7 @@ fun FallingCubes(modifier: Modifier = Modifier) {
 
     val helper = remember {
         IsometricProjectionHelper().apply {
-            scale(60f, 60f, 60f)
+            scale(100f, 100f, 100f)
         }
     }
 
@@ -73,7 +73,7 @@ fun FallingCubes(modifier: Modifier = Modifier) {
         }
         helper.restore()
 
-        drawRect(color = strokeColor, style = Stroke(8.dp.toPx()))
+        drawRect(color = strokeColor, style = Stroke(BorderStrokeWidth.toPx()))
     }
 }
 
@@ -141,7 +141,8 @@ private fun distanceCartesian(x: Int, y: Int) = sqrt((x * x + y * y).toFloat())
 private fun distanceManhattan(x: Int, y: Int) = abs(x) + abs(y)
 
 private const val NumCubes = 14
-private val CubeStrokeWidth = 1.dp
+private val CubeStrokeWidth = 1.5.dp
+private val BorderStrokeWidth = 8.dp
 
 /**
  * Helper class that handles the transformation and projection of 3D points

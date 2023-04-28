@@ -1,7 +1,6 @@
 package com.alexjlockwood.beesandbombs
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,11 +13,11 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "CircleSquare" to { modifier -> CircleSquare(modifier) },
     "CircleWave" to { modifier -> CircleWave(modifier) },
     "CircularProgressIndicator" to { modifier -> CircularProgressIndicator(modifier) },
-    "FallingCubes" to {
-        FallingCubes(
+    "SlidingCubes" to {
+        SlidingCubes(
             Modifier
                 .fillMaxSize()
-                .padding(horizontal = 192.dp, vertical = 16.dp)
+                .padding(horizontal = 176.dp, vertical = 16.dp)
         )
     },
     "LinearProgressIndicator" to { modifier -> LinearProgressIndicator(modifier) },
