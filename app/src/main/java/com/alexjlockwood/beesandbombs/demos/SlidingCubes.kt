@@ -39,7 +39,7 @@ fun SlidingCubes(modifier: Modifier = Modifier) {
 
     val helper = remember {
         IsometricProjectionHelper().apply {
-            scale(120f, 120f, 120f)
+            scale(100f, 100f, 100f)
         }
     }
 
@@ -54,7 +54,7 @@ fun SlidingCubes(modifier: Modifier = Modifier) {
             for (x in NumCubes downTo -NumCubes) {
                 for (y in NumCubes downTo -NumCubes) {
                     val d = distanceManhattan(x, y)
-                    if (d > 10) {
+                    if (d >= NumCubes) {
                         continue
                     }
 
@@ -140,9 +140,9 @@ private fun distanceCartesian(x: Int, y: Int) = sqrt((x * x + y * y).toFloat())
 
 private fun distanceManhattan(x: Int, y: Int) = abs(x) + abs(y)
 
-private const val NumCubes = 14
-private val CubeStrokeWidth = 2.5.dp
-private val BorderStrokeWidth = 12.dp
+private const val NumCubes = 12
+private val CubeStrokeWidth = 2.dp
+private val BorderStrokeWidth = 8.dp
 
 /**
  * Helper class that handles the transformation and projection of 3D points
