@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
+import com.alexjlockwood.beesandbombs.demos.utils.Point
 import com.alexjlockwood.beesandbombs.demos.utils.animationTimeMillis
 import com.alexjlockwood.beesandbombs.demos.utils.sinebow
 import kotlin.math.pow
@@ -114,5 +115,3 @@ private fun calcPerp(p0: Point, p1: Point): Point {
     val len = sqrt(y10 * y10 + x10 * x10)
     return Point(-y10 / len, x10 / len)
 }
-
-private data class Point(val x: Float, val y: Float)
