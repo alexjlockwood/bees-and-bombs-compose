@@ -13,6 +13,7 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "CircleSquare" to { modifier -> CircleSquare(modifier) },
     "CircleWave" to { modifier -> CircleWave(modifier) },
     "CircularProgressIndicator" to { modifier -> CircularProgressIndicator(modifier) },
+    "HexZoom" to { modifier -> HexZoom(modifier) },
     "LinearProgressIndicator" to { modifier -> LinearProgressIndicator(modifier) },
     "MazeVisualization" to { MazeVisualization(Modifier.fillMaxSize()) },
     "PlayingWithPaths" to { modifier -> PlayingWithPaths(modifier) },
