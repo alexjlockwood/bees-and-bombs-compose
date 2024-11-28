@@ -3,10 +3,13 @@ package com.alexjlockwood.beesandbombs
 import android.os.Parcelable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -43,8 +46,9 @@ fun DemoList(demoListState: LazyListState, onDemoSelected: (title: String) -> Un
             TopAppBar(
                 title = { Text(stringResource(R.string.app_name)) },
                 backgroundColor = MaterialTheme.colors.surface,
+                windowInsets = WindowInsets.statusBars
             )
-        }
+        },
     ) {
         LazyColumn(
             modifier = Modifier.padding(it),
