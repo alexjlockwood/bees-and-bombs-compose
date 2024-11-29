@@ -9,6 +9,7 @@ import com.alexjlockwood.beesandbombs.demos.*
 
 val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "AnimalMorph" to { modifier -> AnimalMorph(modifier) },
+    "ArcTwist" to { modifier -> ArcTwist(modifier) },
     "CatmullRomCurves" to { modifier -> CatmullRomCurves(modifier) },
     "CircleSquare" to { modifier -> CircleSquare(modifier) },
     "CircleWave" to { modifier -> CircleWave(modifier) },
