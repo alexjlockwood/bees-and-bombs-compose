@@ -24,6 +24,7 @@ val DemoRegistry = mapOf<String, @Composable (modifier: Modifier) -> Unit>(
     "TickerWave" to { modifier -> TickerWave(modifier) },
     "SlidingCubes" to { modifier -> SlidingCubes(modifier) },
     "SquareTwist" to { modifier -> SquareTwist(modifier) },
+    "Swirls" to { modifier -> Swirls(modifier) },
     "WaveSpiral" to { modifier -> WaveSpiral(modifier) },
     "WaveSquare" to { modifier -> WaveSquare(modifier) },
 )
