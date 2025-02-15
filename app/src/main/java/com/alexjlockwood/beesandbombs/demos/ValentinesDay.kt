@@ -81,10 +81,10 @@ fun ValentinesDay(modifier: Modifier = Modifier) {
 // we can animate the trimOffsetEnd of each sequentially.
 //
 // Format: `startTime to listOf sequential animations`, where each sequential animation
-// is represented by `durationMillis to stroked-subpath to animate`.
+// is represented by `durationMillis to stroked-subpath-to-animate`.
 //
 // It is stored this way primarily just so I could easily tweak the animations without going
-// sane, since some stroked subpaths animate in parallel with different timings.
+// insane, since some stroked subpaths animate in parallel with different timings.
 private val AnimationInfos = listOf(
     0 to listOf(225 to "M 1074 21 C 1022.92 106.782 981.854 183.96 953.454 250.459 C 906.44 360.545 894.128 441.363 928.499 483.5"),
     150 to listOf(150 to "M 840 255.5 C 882.872 253.996 919.775 252.396 953.454 250.459 C 1038.3 245.578 1102.68 238.552 1190.5 225.5"),
